@@ -1,0 +1,117 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProjetoCadastro.Domain;
+
+namespace ProjetoCadastro.Data.Mappings
+{
+    public class ClienteMap : IEntityTypeConfiguration<Cliente>
+    {
+        public void Configure(EntityTypeBuilder<Cliente> builder)
+        {
+            builder.ToTable("Clientes");
+
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn();
+
+            builder.OwnsOne(x => x.Dados, dados =>
+            {
+                dados.Property(d => d.RazaoSocial)
+                    .IsRequired()
+                    .HasColumnName("RazaoSocial")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+                dados.Property(d => d.NomeFantasia)
+                    .IsRequired(false)
+                    .HasColumnName("NomeFantasia")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+                dados.Property(x => x.TipoPessoa)
+                    .IsRequired()
+                    .HasColumnName("TipoPessoa")
+                    .HasColumnType("INT");
+
+                dados.Property(x => x.CpfCnpj)
+                    .IsRequired()
+                    .HasColumnName("CpfCnpj")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(14);
+            });
+
+            builder.OwnsOne(x => x.Endereco, endereco =>
+            {
+                endereco.Property(x => x.Rua)
+                .IsRequired()
+                .HasColumnName("Endereco")
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(100);
+
+                endereco.Property(x => x.Bairro)
+                    .IsRequired()
+                    .HasColumnName("Bairro")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+                endereco.Property(x => x.Cidade)
+                    .IsRequired()
+                    .HasColumnName("Cidade")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+                endereco.Property(x => x.Estado)
+                    .IsRequired()
+                    .HasColumnName("Estado")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(2);
+
+                endereco.Property(x => x.Cep)
+                    .IsRequired()
+                    .HasColumnName("Cep")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(8);
+            });
+            
+
+            builder.Property(x => x.UtilizarMesmoEnderecoParaEntrega)
+                .IsRequired()
+                .HasColumnName("UtilizarMesmoEnderecoParaEntrega")
+                .HasColumnType("BIT");
+
+            builder.OwnsOne(x => x.EnderecoEntrega, endereco =>
+            {
+                endereco.Property(x => x.Rua)
+                .IsRequired()
+                .HasColumnName("EnderecoEntrega")
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(100);
+
+                endereco.Property(x => x.Bairro)
+                    .IsRequired()
+                    .HasColumnName("BairroEntrega")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+                endereco.Property(x => x.Cidade)
+                    .IsRequired()
+                    .HasColumnName("CidadeEntrega")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+                endereco.Property(x => x.Estado)
+                    .IsRequired()
+                    .HasColumnName("EstadoEntrega")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(2);
+
+                endereco.Property(x => x.Cep)
+                    .IsRequired()
+                    .HasColumnName("CepEntrega")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(8);
+            });
+        }
+    }
+}
