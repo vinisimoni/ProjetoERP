@@ -58,23 +58,6 @@ namespace ProjetoERP.Helpers
                     case "data":
                         coluna.DefaultCellStyle.Format = "dd/MM/yyyy";
                         break;
-
-                    case "cpfcnpj":
-
-                        grid.CellFormatting += (sender, e) =>
-                        {
-                            if (grid.Columns[e.ColumnIndex].Name == nomeColuna &&
-                                e.Value is string raw && (raw.Length == 11 || raw.Length == 14))
-                            {
-                                if (raw.Length == 11)
-                                    e.Value = Convert.ToUInt64(raw).ToString(@"000\.000\.000\-00");
-                                else
-                                    e.Value = Convert.ToUInt64(raw).ToString(@"00\.000\.000\/0000\-00");
-
-                                e.FormattingApplied = true;
-                            }
-                        };
-                        break;
                 }
             }            
         }

@@ -67,10 +67,17 @@
             txtCodigo = new TextBox();
             btnIncluir = new Button();
             btnExcluir = new Button();
+            groupBox1 = new GroupBox();
+            cboFiltroSituacao = new ComboBox();
+            btnFiltrar = new Button();
+            txtFiltro = new TextBox();
+            cboFiltroPessoa = new ComboBox();
+            cboTipoFiltro = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)grdClientes).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             grpEnderecoEntrega.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // grdClientes
@@ -80,7 +87,7 @@
             grdClientes.AllowUserToResizeColumns = false;
             grdClientes.AllowUserToResizeRows = false;
             grdClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            grdClientes.Location = new Point(12, 12);
+            grdClientes.Location = new Point(12, 71);
             grdClientes.MultiSelect = false;
             grdClientes.Name = "grdClientes";
             grdClientes.ReadOnly = true;
@@ -90,13 +97,14 @@
             grdClientes.Size = new Size(665, 150);
             grdClientes.TabIndex = 0;
             grdClientes.CellDoubleClick += grdClientes_CellDoubleClick;
+            grdClientes.CellFormatting += grdClientes_CellFormatting;
             grdClientes.SelectionChanged += grdClientes_SelectionChanged;
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Enabled = false;
-            tabControl1.Location = new Point(12, 168);
+            tabControl1.Location = new Point(12, 227);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(669, 301);
@@ -441,7 +449,7 @@
             // 
             // btnIncluir
             // 
-            btnIncluir.Location = new Point(525, 475);
+            btnIncluir.Location = new Point(525, 534);
             btnIncluir.Name = "btnIncluir";
             btnIncluir.Size = new Size(75, 23);
             btnIncluir.TabIndex = 2;
@@ -451,7 +459,7 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(606, 475);
+            btnExcluir.Location = new Point(606, 534);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(75, 23);
             btnExcluir.TabIndex = 3;
@@ -459,11 +467,73 @@
             btnExcluir.UseVisualStyleBackColor = true;
             btnExcluir.Click += btnExcluir_Click;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(cboFiltroSituacao);
+            groupBox1.Controls.Add(btnFiltrar);
+            groupBox1.Controls.Add(txtFiltro);
+            groupBox1.Controls.Add(cboFiltroPessoa);
+            groupBox1.Controls.Add(cboTipoFiltro);
+            groupBox1.Location = new Point(12, 8);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(665, 57);
+            groupBox1.TabIndex = 26;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Filtro";
+            // 
+            // cboFiltroSituacao
+            // 
+            cboFiltroSituacao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboFiltroSituacao.FormattingEnabled = true;
+            cboFiltroSituacao.Items.AddRange(new object[] { "Ambos", "Ativo", "Inativo" });
+            cboFiltroSituacao.Location = new Point(107, 22);
+            cboFiltroSituacao.Name = "cboFiltroSituacao";
+            cboFiltroSituacao.Size = new Size(85, 23);
+            cboFiltroSituacao.TabIndex = 29;
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.Location = new Point(580, 22);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(75, 23);
+            btnFiltrar.TabIndex = 28;
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = true;
+            btnFiltrar.Click += btnFiltrar_Click;
+            // 
+            // txtFiltro
+            // 
+            txtFiltro.Location = new Point(341, 22);
+            txtFiltro.Name = "txtFiltro";
+            txtFiltro.Size = new Size(234, 23);
+            txtFiltro.TabIndex = 27;
+            // 
+            // cboFiltroPessoa
+            // 
+            cboFiltroPessoa.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboFiltroPessoa.FormattingEnabled = true;
+            cboFiltroPessoa.Items.AddRange(new object[] { "Ambos", "Física", "Jurídica" });
+            cboFiltroPessoa.Location = new Point(16, 22);
+            cboFiltroPessoa.Name = "cboFiltroPessoa";
+            cboFiltroPessoa.Size = new Size(85, 23);
+            cboFiltroPessoa.TabIndex = 26;
+            // 
+            // cboTipoFiltro
+            // 
+            cboTipoFiltro.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboTipoFiltro.FormattingEnabled = true;
+            cboTipoFiltro.Items.AddRange(new object[] { "CPF/CNPJ", "Razão Social", "Nome Fantasia", "Endereço", "Cidade", "Endereço Entrega", "Cidade Entrega" });
+            cboTipoFiltro.Location = new Point(198, 22);
+            cboTipoFiltro.Name = "cboTipoFiltro";
+            cboTipoFiltro.Size = new Size(137, 23);
+            cboTipoFiltro.TabIndex = 25;
+            // 
             // frmCadastroCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(691, 510);
+            ClientSize = new Size(691, 575);
+            Controls.Add(groupBox1);
             Controls.Add(btnExcluir);
             Controls.Add(btnIncluir);
             Controls.Add(tabControl1);
@@ -480,6 +550,8 @@
             tabPage1.PerformLayout();
             grpEnderecoEntrega.ResumeLayout(false);
             grpEnderecoEntrega.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -524,5 +596,11 @@
         private CheckBox chkUtilizarOMesmo;
         private Label label15;
         private ComboBox cboSitucao;
+        private GroupBox groupBox1;
+        private ComboBox cboTipoFiltro;
+        private ComboBox cboFiltroPessoa;
+        private Button btnFiltrar;
+        private TextBox txtFiltro;
+        private ComboBox cboFiltroSituacao;
     }
 }

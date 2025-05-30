@@ -15,7 +15,14 @@ namespace ProjetoCadastro
             InitializeComponent();
             AtualizarBotaoExcluir();
             ConfigurarDataBindings();
+
+            cboFiltroPessoa.Text = "Ambos";
+            cboFiltroSituacao.Text = "Ambos";
+            cboTipoFiltro.Text = "Razão Social";
+
             CarregarGridClientes();
+
+            grdClientes.MouseWheel += grdClientes_MouseWheel;
         }
 
         private void HabilitarParaEdicao()
@@ -32,6 +39,7 @@ namespace ProjetoCadastro
         {
             if (btnIncluir.Text == "Incluir")
             {
+                rbFisica.Checked = true;
                 cboSitucao.Text = "Ativo";
                 HabilitarParaEdicao();
             }
@@ -56,7 +64,7 @@ namespace ProjetoCadastro
                     _clienteRepo.Incluir(_cliente);
                 }
                 else
-                {                    
+                {
                     _clienteRepo.Atualizar(_cliente);
                 }
 
@@ -69,7 +77,15 @@ namespace ProjetoCadastro
         {
             if (btnExcluir.Text == "Excluir")
             {
-
+                if (MessageBox.Show(
+                        "Você realmente deseja excluir este registro?",
+                        "Confirmação",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _clienteRepo.Excluir(Convert.ToInt32(grdClientes.CurrentRow.Cells["Id"].Value));
+                    CarregarGridClientes();
+                }
             }
             else
             {
@@ -297,14 +313,45 @@ namespace ProjetoCadastro
 
         private void CarregarGridClientes()
         {
-            grdClientes.DataSource = _clienteRepo.CarregarClientes();
+            int linhaSelecionada = -1;
+            if (grdClientes.CurrentRow != null)
+                linhaSelecionada = grdClientes.CurrentRow.Index;
+
+            grdClientes.DataSource = _clienteRepo.CarregarClientesFiltro(cboFiltroSituacao.Text, cboFiltroPessoa.Text, cboTipoFiltro.Text, txtFiltro.Text);
 
             DataGridViewHelper.ConfigurarColuna(grdClientes, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
             DataGridViewHelper.ConfigurarColuna(grdClientes, "CpfCnpj", "CPF/CNPJ", 150, DataGridViewContentAlignment.MiddleCenter, "CpfCnpj");
-            DataGridViewHelper.ConfigurarColuna(grdClientes, "RazaoSocial", "Razão Social", 420);
+            DataGridViewHelper.ConfigurarColuna(grdClientes, "RazaoSocial", "Razão Social", 210);
             DataGridViewHelper.ConfigurarColuna(grdClientes, "Situacao", "", 0, visivel: false);
+            DataGridViewHelper.ConfigurarColuna(grdClientes, "TipoPessoa", "", 0, visivel: false);
 
-            grdClientes.Refresh();
+            switch (cboTipoFiltro.Text){
+                case "Razão Social":
+                case "Nome Fantasia":
+                case "CPF/CNPJ":
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "NomeFantasia", "Nome Fantasia", 210);
+                    break;
+
+                case "Endereço":
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "Endereco", "Endereço", 210);
+                    break;
+
+                case "Cidade":
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "Cidade", "Cidade", 210);
+                    break;
+
+                case "Endereço Entrega":
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "EnderecoEntrega", "Endereço Entrega", 210);
+                    break;
+
+                case "Cidade Entrega":
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "CidadeEntrega", "Cidade Entrega", 210);
+                    break;
+
+            }
+
+            if (linhaSelecionada >= 0 && linhaSelecionada < grdClientes.Rows.Count)
+                grdClientes.Rows[linhaSelecionada].Selected = true;
         }
 
         private void grdClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -336,6 +383,54 @@ namespace ProjetoCadastro
 
             ConfigurarDataBindings();
             HabilitarParaEdicao();
+        }
+
+        private void grdClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+
+            if (grid.Columns[e.ColumnIndex].Name == "CpfCnpj" && e.Value is string raw)
+            {
+                if (raw.Length == 11)
+                {
+                    e.Value = Convert.ToUInt64(raw).ToString(@"000\.000\.000\-00");
+                    e.FormattingApplied = true;
+                }
+                else if (raw.Length == 14)
+                {
+                    e.Value = Convert.ToUInt64(raw).ToString(@"00\.000\.000\/0000\-00");
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private void grdClientes_MouseWheel(object sender, MouseEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+
+            if (grid.Rows.Count == 0)
+                return;
+
+            int linhaAtual = grid.CurrentRow?.Index ?? 0;
+
+            // Se o delta for positivo, anda 1 linha para cima; se negativo, 1 linha para baixo
+            int linhasASomar = (e.Delta > 0) ? -1 : 1;
+
+            int novaLinha = linhaAtual + linhasASomar;
+
+            // Limitar o índice para não sair do intervalo válido
+            if (novaLinha < 0) novaLinha = 0;
+            if (novaLinha >= grid.Rows.Count) novaLinha = grid.Rows.Count - 1;
+
+            grid.ClearSelection();
+            grid.Rows[novaLinha].Selected = true;
+            grid.CurrentCell = grid.Rows[novaLinha].Cells[0];
+            grid.FirstDisplayedScrollingRowIndex = novaLinha;
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            CarregarGridClientes();
         }
     }
 }
