@@ -1,33 +1,39 @@
 using ProjetoCadastro.Domain;
 using ProjetoCadastro.Domain.Enums;
 using ProjetoCadastro.Repositories;
-using ProjetoCadastro.ViewModels;
+using ProjetoERP.Helpers;
 
 namespace ProjetoCadastro
 {
     public partial class frmCadastroCliente : Form
     {
-
-        private ClienteViewModel _clienteVm = new ClienteViewModel();
-        private ClienteRepositorio _clienteRepositorio = new ClienteRepositorio();
+        private ClienteRepositorio _clienteRepo = new ClienteRepositorio();
+        private Cliente _cliente = new Cliente();
 
         public frmCadastroCliente()
         {
             InitializeComponent();
             AtualizarBotaoExcluir();
             ConfigurarDataBindings();
+            CarregarGridClientes();
+        }
+
+        private void HabilitarParaEdicao()
+        {
+            tabControl1.Enabled = true;
+            btnIncluir.Text = "OK";
+            btnExcluir.Text = "Cancelar";
+            btnExcluir.Enabled = true;
+            grdClientes.Enabled = false;
+            txtCpfCnpj.Focus();
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
             if (btnIncluir.Text == "Incluir")
             {
-                tabControl1.Enabled = true;
-                btnIncluir.Text = "OK";
-                btnExcluir.Text = "Cancelar";
-                btnExcluir.Enabled = true;
-                grdClientes.Enabled = false;
-                rbFisica.Checked = true;
+                cboSitucao.Text = "Ativo";
+                HabilitarParaEdicao();
             }
             else
             {
@@ -37,19 +43,25 @@ namespace ProjetoCadastro
                     return;
 
                 txtCpfCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                _clienteVm.CpfCnpj = txtCpfCnpj.Text;
+                _cliente.CpfCnpj = txtCpfCnpj.Text;
 
                 txtCEP.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                _clienteVm.Cep = txtCEP.Text;
+                _cliente.Cep = txtCEP.Text;
 
                 txtCEPEntrega.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                _clienteVm.CepEntrega = txtCEPEntrega.Text;
+                _cliente.CepEntrega = txtCEPEntrega.Text;
 
-                Cliente cliente = _clienteVm.ToEntity();
-
-                _clienteRepositorio.Incluir(cliente);
+                if (_cliente.Id == 0)
+                {
+                    _clienteRepo.Incluir(_cliente);
+                }
+                else
+                {                    
+                    _clienteRepo.Atualizar(_cliente);
+                }
 
                 LimparFormulario();
+                CarregarGridClientes();
             }
         }
 
@@ -62,6 +74,7 @@ namespace ProjetoCadastro
             else
             {
                 LimparFormulario();
+                CarregarGridClientes();
             }
         }
 
@@ -73,13 +86,17 @@ namespace ProjetoCadastro
             chkUtilizarOMesmo.Checked = false;
             btnIncluir.Text = "Incluir";
             btnExcluir.Text = "Excluir";
+            cboSitucao.Text = "Ativo";
             LimparCampos();
             AtualizarBotaoExcluir();
         }
 
         private void LimparCampos()
         {
-            txtCodigo.Text = string.Empty;
+            if (_cliente.Id != 0)
+                _clienteRepo.DetachedCliente(_cliente);
+
+            txtCodigo.Text = "0";
             txtCpfCnpj.Text = string.Empty;
             txtRazaoSocial.Text = string.Empty;
             txtNomeFantasia.Text = string.Empty;
@@ -203,13 +220,13 @@ namespace ProjetoCadastro
             {
                 txtCpfCnpj.Mask = "000.000.000-00";
                 txtCpfCnpj.Clear();
-                _clienteVm.TipoPessoa = ETipoPessoa.Fisica;
+                _cliente.TipoPessoa = ETipoPessoa.Fisica;
             }
             else if (rbJuridica.Checked)
             {
                 txtCpfCnpj.Mask = "00.000.000/0000-00";
                 txtCpfCnpj.Clear();
-                _clienteVm.TipoPessoa = ETipoPessoa.Juridica;
+                _cliente.TipoPessoa = ETipoPessoa.Juridica;
             }
         }
 
@@ -221,21 +238,21 @@ namespace ProjetoCadastro
             {
                 grpEnderecoEntrega.Enabled = false;
 
-                _clienteVm.EnderecoEntrega = _clienteVm.Endereco;
-                _clienteVm.BairroEntrega = _clienteVm.Bairro;
-                _clienteVm.CidadeEntrega = _clienteVm.Cidade;
-                _clienteVm.EstadoEntrega = _clienteVm.Estado;
-                _clienteVm.CepEntrega = _clienteVm.Cep;
+                _cliente.EnderecoEntrega = _cliente.Endereco;
+                _cliente.BairroEntrega = _cliente.Bairro;
+                _cliente.CidadeEntrega = _cliente.Cidade;
+                _cliente.EstadoEntrega = _cliente.Estado;
+                _cliente.CepEntrega = _cliente.Cep;
             }
             else
             {
                 grpEnderecoEntrega.Enabled = true;
 
-                _clienteVm.EnderecoEntrega = string.Empty;
-                _clienteVm.BairroEntrega = string.Empty;
-                _clienteVm.CidadeEntrega = string.Empty;
-                _clienteVm.EstadoEntrega = string.Empty;
-                _clienteVm.CepEntrega = string.Empty;
+                _cliente.EnderecoEntrega = string.Empty;
+                _cliente.BairroEntrega = string.Empty;
+                _cliente.CidadeEntrega = string.Empty;
+                _cliente.EstadoEntrega = string.Empty;
+                _cliente.CepEntrega = string.Empty;
             }
         }
 
@@ -257,23 +274,68 @@ namespace ProjetoCadastro
             txtCidadeEntrega.DataBindings.Clear();
             txtUFEntrega.DataBindings.Clear();
             txtCEPEntrega.DataBindings.Clear();
+            cboSitucao.DataBindings.Clear();
 
             // Cria novos bindings
-            txtCodigo.DataBindings.Add("Text", _clienteVm, "Id", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCpfCnpj.DataBindings.Add("Text", _clienteVm, "CpfCnpj", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtRazaoSocial.DataBindings.Add("Text", _clienteVm, "RazaoSocial", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtNomeFantasia.DataBindings.Add("Text", _clienteVm, "NomeFantasia", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtEndereco.DataBindings.Add("Text", _clienteVm, "Endereco", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtBairro.DataBindings.Add("Text", _clienteVm, "Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCidade.DataBindings.Add("Text", _clienteVm, "Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtUF.DataBindings.Add("Text", _clienteVm, "Estado", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCEP.DataBindings.Add("Text", _clienteVm, "Cep", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkUtilizarOMesmo.DataBindings.Add("Checked", _clienteVm, "UtilizarMesmoEnderecoParaEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtEnderecoEntrega.DataBindings.Add("Text", _clienteVm, "EnderecoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtBairroEntrega.DataBindings.Add("Text", _clienteVm, "BairroEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCidadeEntrega.DataBindings.Add("Text", _clienteVm, "CidadeEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtUFEntrega.DataBindings.Add("Text", _clienteVm, "EstadoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCEPEntrega.DataBindings.Add("Text", _clienteVm, "CepEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-        }        
+            txtCodigo.DataBindings.Add("Text", _cliente, "Id", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCpfCnpj.DataBindings.Add("Text", _cliente, "CpfCnpj", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtRazaoSocial.DataBindings.Add("Text", _cliente, "RazaoSocial", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtNomeFantasia.DataBindings.Add("Text", _cliente, "NomeFantasia", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtEndereco.DataBindings.Add("Text", _cliente, "Endereco", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtBairro.DataBindings.Add("Text", _cliente, "Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCidade.DataBindings.Add("Text", _cliente, "Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtUF.DataBindings.Add("Text", _cliente, "Estado", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCEP.DataBindings.Add("Text", _cliente, "Cep", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkUtilizarOMesmo.DataBindings.Add("Checked", _cliente, "UtilizarMesmoEnderecoParaEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtEnderecoEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtBairroEntrega.DataBindings.Add("Text", _cliente, "BairroEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCidadeEntrega.DataBindings.Add("Text", _cliente, "CidadeEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtUFEntrega.DataBindings.Add("Text", _cliente, "EstadoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCEPEntrega.DataBindings.Add("Text", _cliente, "CepEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            cboSitucao.DataBindings.Add("Text", _cliente, "Situacao", false, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void CarregarGridClientes()
+        {
+            grdClientes.DataSource = _clienteRepo.CarregarClientes();
+
+            DataGridViewHelper.ConfigurarColuna(grdClientes, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
+            DataGridViewHelper.ConfigurarColuna(grdClientes, "CpfCnpj", "CPF/CNPJ", 150, DataGridViewContentAlignment.MiddleCenter, "CpfCnpj");
+            DataGridViewHelper.ConfigurarColuna(grdClientes, "RazaoSocial", "Razão Social", 420);
+            DataGridViewHelper.ConfigurarColuna(grdClientes, "Situacao", "", 0, visivel: false);
+
+            grdClientes.Refresh();
+        }
+
+        private void grdClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = grdClientes.Rows[e.RowIndex];
+            var id = row.Cells["Id"].Value;
+            if (id == null) return;
+
+            _cliente = _clienteRepo.ObterPorId(Convert.ToInt32(id));
+
+            rbFisica.CheckedChanged -= RadioButton_CheckedChanged;
+            rbJuridica.CheckedChanged -= RadioButton_CheckedChanged;
+
+            if (_cliente.TipoPessoa == ETipoPessoa.Fisica)
+            {
+                rbFisica.Checked = true;
+                txtCpfCnpj.Mask = "000.000.000-00";
+            }
+            else
+            {
+                rbJuridica.Checked = true;
+                txtCpfCnpj.Mask = "00.000.000/0000-00";
+            }
+
+            rbFisica.CheckedChanged += RadioButton_CheckedChanged;
+            rbJuridica.CheckedChanged += RadioButton_CheckedChanged;
+
+            ConfigurarDataBindings();
+            HabilitarParaEdicao();
+        }
     }
 }

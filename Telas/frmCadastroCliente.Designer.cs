@@ -31,6 +31,8 @@
             grdClientes = new DataGridView();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            cboSitucao = new ComboBox();
+            label15 = new Label();
             chkUtilizarOMesmo = new CheckBox();
             grpEnderecoEntrega = new GroupBox();
             txtCEPEntrega = new MaskedTextBox();
@@ -75,12 +77,19 @@
             // 
             grdClientes.AllowUserToAddRows = false;
             grdClientes.AllowUserToDeleteRows = false;
+            grdClientes.AllowUserToResizeColumns = false;
+            grdClientes.AllowUserToResizeRows = false;
             grdClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grdClientes.Location = new Point(12, 12);
+            grdClientes.MultiSelect = false;
             grdClientes.Name = "grdClientes";
             grdClientes.ReadOnly = true;
+            grdClientes.RowHeadersVisible = false;
+            grdClientes.ScrollBars = ScrollBars.Vertical;
+            grdClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grdClientes.Size = new Size(665, 150);
             grdClientes.TabIndex = 0;
+            grdClientes.CellDoubleClick += grdClientes_CellDoubleClick;
             grdClientes.SelectionChanged += grdClientes_SelectionChanged;
             // 
             // tabControl1
@@ -95,6 +104,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(cboSitucao);
+            tabPage1.Controls.Add(label15);
             tabPage1.Controls.Add(chkUtilizarOMesmo);
             tabPage1.Controls.Add(grpEnderecoEntrega);
             tabPage1.Controls.Add(txtCpfCnpj);
@@ -125,6 +136,25 @@
             tabPage1.Text = "Principal";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // cboSitucao
+            // 
+            cboSitucao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboSitucao.FormattingEnabled = true;
+            cboSitucao.Items.AddRange(new object[] { "Ativo", "Inativo" });
+            cboSitucao.Location = new Point(566, 9);
+            cboSitucao.Name = "cboSitucao";
+            cboSitucao.Size = new Size(85, 23);
+            cboSitucao.TabIndex = 24;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(505, 12);
+            label15.Name = "label15";
+            label15.Size = new Size(55, 15);
+            label15.TabIndex = 23;
+            label15.Text = "Situação:";
+            // 
             // chkUtilizarOMesmo
             // 
             chkUtilizarOMesmo.AutoSize = true;
@@ -151,7 +181,7 @@
             grpEnderecoEntrega.Location = new Point(12, 179);
             grpEnderecoEntrega.Name = "grpEnderecoEntrega";
             grpEnderecoEntrega.Size = new Size(639, 87);
-            grpEnderecoEntrega.TabIndex = 21;
+            grpEnderecoEntrega.TabIndex = 17;
             grpEnderecoEntrega.TabStop = false;
             grpEnderecoEntrega.Text = "Endereço Entrega";
             // 
@@ -161,7 +191,7 @@
             txtCEPEntrega.Mask = "00000-000";
             txtCEPEntrega.Name = "txtCEPEntrega";
             txtCEPEntrega.Size = new Size(60, 23);
-            txtCEPEntrega.TabIndex = 26;
+            txtCEPEntrega.TabIndex = 13;
             // 
             // label10
             // 
@@ -187,7 +217,7 @@
             txtUFEntrega.MaxLength = 2;
             txtUFEntrega.Name = "txtUFEntrega";
             txtUFEntrega.Size = new Size(40, 23);
-            txtUFEntrega.TabIndex = 23;
+            txtUFEntrega.TabIndex = 12;
             // 
             // label12
             // 
@@ -203,7 +233,7 @@
             txtCidadeEntrega.Location = new Point(294, 50);
             txtCidadeEntrega.Name = "txtCidadeEntrega";
             txtCidadeEntrega.Size = new Size(145, 23);
-            txtCidadeEntrega.TabIndex = 21;
+            txtCidadeEntrega.TabIndex = 11;
             // 
             // label13
             // 
@@ -219,7 +249,7 @@
             txtBairroEntrega.Location = new Point(81, 50);
             txtBairroEntrega.Name = "txtBairroEntrega";
             txtBairroEntrega.Size = new Size(145, 23);
-            txtBairroEntrega.TabIndex = 19;
+            txtBairroEntrega.TabIndex = 10;
             // 
             // label14
             // 
@@ -235,19 +265,19 @@
             txtEnderecoEntrega.Location = new Point(81, 21);
             txtEnderecoEntrega.Name = "txtEnderecoEntrega";
             txtEnderecoEntrega.Size = new Size(544, 23);
-            txtEnderecoEntrega.TabIndex = 17;
+            txtEnderecoEntrega.TabIndex = 9;
             // 
             // txtCpfCnpj
             // 
-            txtCpfCnpj.Location = new Point(511, 8);
+            txtCpfCnpj.Location = new Point(377, 8);
             txtCpfCnpj.Name = "txtCpfCnpj";
-            txtCpfCnpj.Size = new Size(140, 23);
-            txtCpfCnpj.TabIndex = 20;
+            txtCpfCnpj.Size = new Size(122, 23);
+            txtCpfCnpj.TabIndex = 1;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(442, 12);
+            label9.Location = new Point(308, 12);
             label9.Name = "label9";
             label9.Size = new Size(63, 15);
             label9.TabIndex = 19;
@@ -256,10 +286,10 @@
             // rbJuridica
             // 
             rbJuridica.AutoSize = true;
-            rbJuridica.Location = new Point(317, 10);
+            rbJuridica.Location = new Point(237, 11);
             rbJuridica.Name = "rbJuridica";
             rbJuridica.Size = new Size(65, 19);
-            rbJuridica.TabIndex = 18;
+            rbJuridica.TabIndex = 22;
             rbJuridica.TabStop = true;
             rbJuridica.Text = "Jurídica";
             rbJuridica.UseVisualStyleBackColor = true;
@@ -268,10 +298,10 @@
             // rbFisica
             // 
             rbFisica.AutoSize = true;
-            rbFisica.Location = new Point(257, 10);
+            rbFisica.Location = new Point(177, 11);
             rbFisica.Name = "rbFisica";
             rbFisica.Size = new Size(54, 19);
-            rbFisica.TabIndex = 17;
+            rbFisica.TabIndex = 21;
             rbFisica.TabStop = true;
             rbFisica.Text = "Fisíca";
             rbFisica.UseVisualStyleBackColor = true;
@@ -283,7 +313,7 @@
             txtCEP.Mask = "00000-000";
             txtCEP.Name = "txtCEP";
             txtCEP.Size = new Size(60, 23);
-            txtCEP.TabIndex = 16;
+            txtCEP.TabIndex = 8;
             // 
             // label8
             // 
@@ -309,7 +339,7 @@
             txtUF.MaxLength = 2;
             txtUF.Name = "txtUF";
             txtUF.Size = new Size(40, 23);
-            txtUF.TabIndex = 12;
+            txtUF.TabIndex = 7;
             // 
             // label6
             // 
@@ -325,7 +355,7 @@
             txtCidade.Location = new Point(317, 125);
             txtCidade.Name = "txtCidade";
             txtCidade.Size = new Size(145, 23);
-            txtCidade.TabIndex = 10;
+            txtCidade.TabIndex = 6;
             // 
             // label5
             // 
@@ -341,7 +371,7 @@
             txtBairro.Location = new Point(107, 125);
             txtBairro.Name = "txtBairro";
             txtBairro.Size = new Size(145, 23);
-            txtBairro.TabIndex = 8;
+            txtBairro.TabIndex = 5;
             // 
             // label4
             // 
@@ -357,7 +387,7 @@
             txtEndereco.Location = new Point(107, 96);
             txtEndereco.Name = "txtEndereco";
             txtEndereco.Size = new Size(544, 23);
-            txtEndereco.TabIndex = 6;
+            txtEndereco.TabIndex = 4;
             // 
             // label3
             // 
@@ -373,7 +403,7 @@
             txtNomeFantasia.Location = new Point(107, 67);
             txtNomeFantasia.Name = "txtNomeFantasia";
             txtNomeFantasia.Size = new Size(544, 23);
-            txtNomeFantasia.TabIndex = 4;
+            txtNomeFantasia.TabIndex = 3;
             // 
             // label2
             // 
@@ -398,7 +428,7 @@
             txtRazaoSocial.Location = new Point(107, 38);
             txtRazaoSocial.Name = "txtRazaoSocial";
             txtRazaoSocial.Size = new Size(544, 23);
-            txtRazaoSocial.TabIndex = 1;
+            txtRazaoSocial.TabIndex = 2;
             // 
             // txtCodigo
             // 
@@ -407,6 +437,7 @@
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(58, 23);
             txtCodigo.TabIndex = 0;
+            txtCodigo.TextAlign = HorizontalAlignment.Center;
             // 
             // btnIncluir
             // 
@@ -441,6 +472,7 @@
             MinimizeBox = false;
             Name = "frmCadastroCliente";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Clientes";
             ((System.ComponentModel.ISupportInitialize)grdClientes).EndInit();
             tabControl1.ResumeLayout(false);
@@ -490,5 +522,7 @@
         private Label label14;
         private TextBox txtEnderecoEntrega;
         private CheckBox chkUtilizarOMesmo;
+        private Label label15;
+        private ComboBox cboSitucao;
     }
 }

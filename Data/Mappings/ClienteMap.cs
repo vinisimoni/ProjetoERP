@@ -12,106 +12,104 @@ namespace ProjetoCadastro.Data.Mappings
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
-                .ValueGeneratedOnAdd()
-                .UseIdentityColumn();
+                    .ValueGeneratedOnAdd()
+                    .UseIdentityColumn();
 
-            builder.OwnsOne(x => x.Dados, dados =>
-            {
-                dados.Property(d => d.RazaoSocial)
+            builder.Property(d => d.RazaoSocial)
                     .IsRequired()
                     .HasColumnName("RazaoSocial")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-                dados.Property(d => d.NomeFantasia)
+            builder.Property(d => d.NomeFantasia)
                     .IsRequired(false)
                     .HasColumnName("NomeFantasia")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-                dados.Property(x => x.TipoPessoa)
+            builder.Property(x => x.TipoPessoa)
                     .IsRequired()
                     .HasColumnName("TipoPessoa")
                     .HasColumnType("INT");
 
-                dados.Property(x => x.CpfCnpj)
+            builder.Property(x => x.CpfCnpj)
                     .IsRequired()
                     .HasColumnName("CpfCnpj")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(14);
-            });
+         
+            builder.Property(x => x.Endereco)
+                    .IsRequired()
+                    .HasColumnName("Endereco")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
 
-            builder.OwnsOne(x => x.Endereco, endereco =>
-            {
-                endereco.Property(x => x.Rua)
-                .IsRequired()
-                .HasColumnName("Endereco")
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(100);
-
-                endereco.Property(x => x.Bairro)
+            builder.Property(x => x.Bairro)
                     .IsRequired()
                     .HasColumnName("Bairro")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-                endereco.Property(x => x.Cidade)
+            builder.Property(x => x.Cidade)
                     .IsRequired()
                     .HasColumnName("Cidade")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-                endereco.Property(x => x.Estado)
+            builder.Property(x => x.Estado)
                     .IsRequired()
                     .HasColumnName("Estado")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(2);
 
-                endereco.Property(x => x.Cep)
+            builder.Property(x => x.Cep)
                     .IsRequired()
                     .HasColumnName("Cep")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(8);
-            });
             
 
             builder.Property(x => x.UtilizarMesmoEnderecoParaEntrega)
-                .IsRequired()
-                .HasColumnName("UtilizarMesmoEnderecoParaEntrega")
-                .HasColumnType("BIT");
+                    .IsRequired()
+                    .HasColumnName("UtilizarMesmoEnderecoParaEntrega")
+                    .HasColumnType("BIT");
 
-            builder.OwnsOne(x => x.EnderecoEntrega, endereco =>
-            {
-                endereco.Property(x => x.Rua)
-                .IsRequired()
-                .HasColumnName("EnderecoEntrega")
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(100);
 
-                endereco.Property(x => x.Bairro)
+            builder.Property(x => x.EnderecoEntrega)
+                    .IsRequired()
+                    .HasColumnName("EnderecoEntrega")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(100);
+
+            builder.Property(x => x.BairroEntrega)
                     .IsRequired()
                     .HasColumnName("BairroEntrega")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-                endereco.Property(x => x.Cidade)
+            builder.Property(x => x.CidadeEntrega)
                     .IsRequired()
                     .HasColumnName("CidadeEntrega")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-                endereco.Property(x => x.Estado)
+            builder.Property(x => x.EstadoEntrega)
                     .IsRequired()
                     .HasColumnName("EstadoEntrega")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(2);
 
-                endereco.Property(x => x.Cep)
+            builder.Property(x => x.CepEntrega)
                     .IsRequired()
                     .HasColumnName("CepEntrega")
                     .HasColumnType("VARCHAR")
-                    .HasMaxLength(8);
-            });
+                    .HasMaxLength(8);           
+
+            builder.Property(x => x.Situacao)
+                    .IsRequired()
+                    .HasColumnName("Situacao")
+                    .HasColumnType("VARCHAR")
+                    .HasMaxLength(10);
         }
     }
 }
