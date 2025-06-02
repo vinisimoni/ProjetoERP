@@ -538,6 +538,7 @@
             Controls.Add(btnIncluir);
             Controls.Add(tabControl1);
             Controls.Add(grdClientes);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCadastroCliente";

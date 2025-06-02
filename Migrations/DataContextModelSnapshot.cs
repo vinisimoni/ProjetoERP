@@ -133,9 +133,9 @@ namespace ProjetoERP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("ControleEstoque")
+                    b.Property<bool>("ControlaEstoque")
                         .HasColumnType("BIT")
-                        .HasColumnName("ControleEstoque");
+                        .HasColumnName("ControlaEstoque");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

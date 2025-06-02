@@ -11,7 +11,7 @@ using ProjetoCadastro.Data;
 namespace ProjetoERP.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250602185609_CriarTabelaMateriais")]
+    [Migration("20250602203948_CriarTabelaMateriais")]
     partial class CriarTabelaMateriais
     {
         /// <inheritdoc />
@@ -136,9 +136,9 @@ namespace ProjetoERP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("ControleEstoque")
+                    b.Property<bool>("ControlaEstoque")
                         .HasColumnType("BIT")
-                        .HasColumnName("ControleEstoque");
+                        .HasColumnName("ControlaEstoque");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

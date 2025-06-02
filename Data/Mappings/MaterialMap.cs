@@ -40,9 +40,9 @@ namespace ProjetoCadastro.Data.Mappings
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(10);
 
-            builder.Property(x => x.ControleEstoque)
+            builder.Property(x => x.ControlaEstoque)
                     .IsRequired()
-                    .HasColumnName("ControleEstoque")
+                    .HasColumnName("ControlaEstoque")
                     .HasColumnType("BIT");
 
             builder.Property(x => x.EstoqueAtual)

@@ -20,7 +20,7 @@ namespace ProjetoERP.Migrations
                     Referencia = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: true),
                     Unidade = table.Column<string>(type: "VARCHAR(10)", maxLength: 10, nullable: false),
                     Situacao = table.Column<string>(type: "VARCHAR(10)", maxLength: 10, nullable: false),
-                    ControleEstoque = table.Column<bool>(type: "BIT", nullable: false),
+                    ControlaEstoque = table.Column<bool>(type: "BIT", nullable: false),
                     EstoqueAtual = table.Column<decimal>(type: "DECIMAL(15,5)", nullable: false),
                     ValorVenda = table.Column<decimal>(type: "DECIMAL(15,2)", nullable: false)
                 },

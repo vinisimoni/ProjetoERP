@@ -33,6 +33,10 @@
             btnIncluir = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label5 = new Label();
+            txtValorVenda = new TextBox();
+            label4 = new Label();
+            txtEstoqueAtual = new TextBox();
             cboSitucao = new ComboBox();
             label15 = new Label();
             chkControlaEstoque = new CheckBox();
@@ -44,10 +48,6 @@
             label1 = new Label();
             txtDescricao = new TextBox();
             txtCodigo = new TextBox();
-            label4 = new Label();
-            txtEstoqueAtual = new TextBox();
-            label5 = new Label();
-            txtValorVenda = new TextBox();
             ((System.ComponentModel.ISupportInitialize)grdMateriais).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -69,6 +69,8 @@
             grdMateriais.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grdMateriais.Size = new Size(665, 150);
             grdMateriais.TabIndex = 1;
+            grdMateriais.CellDoubleClick += grdMateriais_CellDoubleClick;
+            grdMateriais.SelectionChanged += grdMateriais_SelectionChanged;
             // 
             // btnExcluir
             // 
@@ -78,6 +80,7 @@
             btnExcluir.TabIndex = 6;
             btnExcluir.Text = "Excluir";
             btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnIncluir
             // 
@@ -123,6 +126,44 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Principal";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(349, 99);
+            label5.Name = "label5";
+            label5.Size = new Size(71, 15);
+            label5.TabIndex = 28;
+            label5.Text = "Valor Venda:";
+            // 
+            // txtValorVenda
+            // 
+            txtValorVenda.Location = new Point(426, 96);
+            txtValorVenda.MaxLength = 2;
+            txtValorVenda.Name = "txtValorVenda";
+            txtValorVenda.Size = new Size(85, 23);
+            txtValorVenda.TabIndex = 27;
+            txtValorVenda.TextAlign = HorizontalAlignment.Right;
+            txtValorVenda.KeyPress += txtValorVenda_KeyPress;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(153, 99);
+            label4.Name = "label4";
+            label4.Size = new Size(83, 15);
+            label4.TabIndex = 26;
+            label4.Text = "Estoque Atual:";
+            // 
+            // txtEstoqueAtual
+            // 
+            txtEstoqueAtual.Enabled = false;
+            txtEstoqueAtual.Location = new Point(242, 96);
+            txtEstoqueAtual.MaxLength = 2;
+            txtEstoqueAtual.Name = "txtEstoqueAtual";
+            txtEstoqueAtual.Size = new Size(85, 23);
+            txtEstoqueAtual.TabIndex = 25;
+            txtEstoqueAtual.TextAlign = HorizontalAlignment.Right;
             // 
             // cboSitucao
             // 
@@ -220,44 +261,6 @@
             txtCodigo.TabIndex = 0;
             txtCodigo.TextAlign = HorizontalAlignment.Center;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(153, 99);
-            label4.Name = "label4";
-            label4.Size = new Size(83, 15);
-            label4.TabIndex = 26;
-            label4.Text = "Estoque Atual:";
-            // 
-            // txtEstoqueAtual
-            // 
-            txtEstoqueAtual.Enabled = false;
-            txtEstoqueAtual.Location = new Point(242, 96);
-            txtEstoqueAtual.MaxLength = 2;
-            txtEstoqueAtual.Name = "txtEstoqueAtual";
-            txtEstoqueAtual.Size = new Size(85, 23);
-            txtEstoqueAtual.TabIndex = 25;
-            txtEstoqueAtual.TextAlign = HorizontalAlignment.Right;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(349, 99);
-            label5.Name = "label5";
-            label5.Size = new Size(71, 15);
-            label5.TabIndex = 28;
-            label5.Text = "Valor Venda:";
-            // 
-            // txtValorVenda
-            // 
-            txtValorVenda.Enabled = false;
-            txtValorVenda.Location = new Point(426, 96);
-            txtValorVenda.MaxLength = 2;
-            txtValorVenda.Name = "txtValorVenda";
-            txtValorVenda.Size = new Size(85, 23);
-            txtValorVenda.TabIndex = 27;
-            txtValorVenda.TextAlign = HorizontalAlignment.Right;
-            // 
             // frmCadastroMaterial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -267,10 +270,12 @@
             Controls.Add(btnIncluir);
             Controls.Add(tabControl1);
             Controls.Add(grdMateriais);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCadastroMaterial";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Material";
             ((System.ComponentModel.ISupportInitialize)grdMateriais).EndInit();
             tabControl1.ResumeLayout(false);

@@ -1,4 +1,5 @@
 ﻿using ProjetoCadastro.Domain;
+using ProjetoCadastro.Domain.Enums;
 using ProjetoERP.Domain;
 using ProjetoERP.Helpers;
 using ProjetoERP.Repositories;
@@ -9,6 +10,8 @@ namespace ProjetoERP.Telas
     {
         private MaterialRepositorio _materialRepo = new MaterialRepositorio();
         private Material _material = new Material();
+        private long _valorInterno = 0;
+
         public frmCadastroMaterial()
         {
             InitializeComponent();
@@ -55,12 +58,13 @@ namespace ProjetoERP.Telas
                 linhaSelecionada = grdMateriais.CurrentRow.Index;
 
             //grdMateriais.DataSource = _clienteRepo.CarregarClientesFiltro(cboFiltroSituacao.Text, cboFiltroPessoa.Text, cboTipoFiltro.Text, txtFiltro.Text);
+            grdMateriais.DataSource = _materialRepo.CarregarMateriais();
 
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
-            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Descricao", "Descrição", 210, DataGridViewContentAlignment.MiddleCenter, "CpfCnpj");
-            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Referencia", "Referência", 150);
-            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Unidade", "UN", 50);
-            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Situacao", "", 0, visivel: false);           
+            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Descricao", "Descrição", 230);
+            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Referencia", "Referência", 230);
+            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Unidade", "UN", 105);
+            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Situacao", "", 0, visivel: false);
 
             if (linhaSelecionada >= 0 && linhaSelecionada < grdMateriais.Rows.Count)
                 grdMateriais.Rows[linhaSelecionada].Selected = true;
@@ -85,7 +89,7 @@ namespace ProjetoERP.Telas
             chkControlaEstoque.DataBindings.Add("Checked", _material, "ControlaEstoque", false, DataSourceUpdateMode.OnPropertyChanged);
             txtUN.DataBindings.Add("Text", _material, "Unidade", false, DataSourceUpdateMode.OnPropertyChanged);
             txtValorVenda.DataBindings.Add("Text", _material, "ValorVenda", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtEstoqueAtual.DataBindings.Add("Text", _material, "EstoqueAtual", false, DataSourceUpdateMode.OnPropertyChanged);            
+            txtEstoqueAtual.DataBindings.Add("Text", _material, "EstoqueAtual", false, DataSourceUpdateMode.OnPropertyChanged);
             cboSitucao.DataBindings.Add("Text", _material, "Situacao", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -164,7 +168,6 @@ namespace ProjetoERP.Telas
 
         private bool ValidarCampos()
         {
-
             if (string.IsNullOrWhiteSpace(txtDescricao.Text))
             {
                 MessageBox.Show("O campo Descrição é obrigatório.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -180,6 +183,75 @@ namespace ProjetoERP.Telas
             }
 
             return true;
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (btnExcluir.Text == "Excluir")
+            {
+                if (MessageBox.Show(
+                        "Você realmente deseja excluir este registro?",
+                        "Confirmação",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _materialRepo.Excluir(Convert.ToInt32(grdMateriais.CurrentRow.Cells["Id"].Value));
+                    CarregarGridMateriais();
+                }
+            }
+            else
+            {
+                LimparFormulario();
+                CarregarGridMateriais();
+            }
+        }
+
+        private void grdMateriais_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = grdMateriais.Rows[e.RowIndex];
+            var id = row.Cells["Id"].Value;
+            if (id == null) return;
+
+            _material = _materialRepo.ObterPorId(Convert.ToInt32(id));
+
+            ConfigurarDataBindings();
+            HabilitarParaEdicao();
+        }
+
+        private void grdMateriais_SelectionChanged(object sender, EventArgs e)
+        {
+            AtualizarBotaoExcluir();
+        }        
+
+        private void AtualizarCampoValorVenda()
+        {
+            decimal valor = _valorInterno / 100m;
+            txtValorVenda.Text = valor.ToString("N2");
+            txtValorVenda.SelectionStart = txtValorVenda.Text.Length;
+        }
+
+        private void txtValorVenda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                // Concatena dígito e mantém valor interno
+                _valorInterno = _valorInterno * 10 + (e.KeyChar - '0');
+                AtualizarCampoValorVenda();
+                e.Handled = true;
+            }
+            else if (e.KeyChar == (char)Keys.Back)
+            {
+                _valorInterno = _valorInterno / 10;
+                AtualizarCampoValorVenda();
+                e.Handled = true;
+            }
+            else
+            {
+                // Bloqueia qualquer outro caractere
+                e.Handled = true;
+            }
         }
     }
 }

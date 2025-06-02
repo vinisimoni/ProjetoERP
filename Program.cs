@@ -1,3 +1,5 @@
+using ProjetoERP.Telas;
+
 namespace ProjetoCadastro
 {
     internal static class Program
@@ -11,7 +13,7 @@ namespace ProjetoCadastro
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmCadastroCliente());
+            Application.Run(new frmMenu());
         }
     }
 }

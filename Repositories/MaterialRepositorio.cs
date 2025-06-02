@@ -39,7 +39,7 @@ namespace ProjetoERP.Repositories
             _context.SaveChanges();
         }
 
-        public void DetachedCliente(Material material)
+        public void DetachedMaterial(Material material)
         {
             _context.Entry(material).State = EntityState.Detached;
         }

@@ -13,7 +13,7 @@ namespace ProjetoERP.Domain
         public string Referencia { get; set; }
         public string Unidade { get; set; }
         public string Situacao { get; set; }
-        public bool ControleEstoque { get; set; }
+        public bool ControlaEstoque { get; set; }
         public decimal EstoqueAtual { get; set; }
         public decimal ValorVenda { get; set; }
     }
