@@ -34,7 +34,7 @@ namespace ProjetoERP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                    table.PrimaryKey("PK_clientes", x => x.Id);
                 });
         }
 

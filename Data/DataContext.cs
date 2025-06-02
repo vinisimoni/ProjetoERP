@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoCadastro.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProjetoERP.Domain;
 
 namespace ProjetoCadastro.Data
 {
@@ -21,5 +17,6 @@ namespace ProjetoCadastro.Data
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Material> Materiais { get; set; }
     }
 }

@@ -38,6 +38,10 @@ namespace ProjetoERP.Helpers
                             row.DefaultCellStyle.ForeColor = Color.Red;
                             row.DefaultCellStyle.SelectionBackColor = Color.Red;
                             break;
+
+                        case "ativo":
+                            row.DefaultCellStyle.ForeColor = Color.Blue;
+                            break;
                     }
                 };
             }            
