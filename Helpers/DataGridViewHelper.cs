@@ -22,22 +22,25 @@ namespace ProjetoERP.Helpers
             //visibilidade
             coluna.Visible = visivel;
 
-            //cores
-            grid.RowPrePaint += (sender, e) =>
+            ////cores
+            if (nomeColuna == "Situacao")
             {
-                var dgv = (DataGridView)sender;
-                var row = dgv.Rows[e.RowIndex];
-
-                var valor = row.Cells[nomeColuna].Value?.ToString()?.ToLower();
-
-                switch (valor)
+                grid.RowPrePaint += (sender, e) =>
                 {
-                    case "inativo":
-                        row.DefaultCellStyle.ForeColor = Color.Red;
-                        row.DefaultCellStyle.SelectionBackColor = Color.Red;
-                        break;
-                }
-            };
+                    var dgv = (DataGridView)sender;
+                    var row = dgv.Rows[e.RowIndex];
+
+                    var valor = row.Cells[nomeColuna].Value?.ToString()?.ToLower();
+
+                    switch (valor)
+                    {
+                        case "inativo":
+                            row.DefaultCellStyle.ForeColor = Color.Red;
+                            row.DefaultCellStyle.SelectionBackColor = Color.Red;
+                            break;
+                    }
+                };
+            }            
 
             if (!visivel) return;
 
@@ -59,7 +62,7 @@ namespace ProjetoERP.Helpers
                         coluna.DefaultCellStyle.Format = "dd/MM/yyyy";
                         break;
                 }
-            }            
+            }
         }
     }
 }

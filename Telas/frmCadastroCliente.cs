@@ -236,13 +236,13 @@ namespace ProjetoCadastro
             {
                 txtCpfCnpj.Mask = "000.000.000-00";
                 txtCpfCnpj.Clear();
-                _cliente.TipoPessoa = ETipoPessoa.Fisica;
+                _cliente.TipoPessoa = ETipoPessoa.Física;
             }
             else if (rbJuridica.Checked)
             {
                 txtCpfCnpj.Mask = "00.000.000/0000-00";
                 txtCpfCnpj.Clear();
-                _cliente.TipoPessoa = ETipoPessoa.Juridica;
+                _cliente.TipoPessoa = ETipoPessoa.Jurídica;
             }
         }
 
@@ -325,7 +325,8 @@ namespace ProjetoCadastro
             DataGridViewHelper.ConfigurarColuna(grdClientes, "Situacao", "", 0, visivel: false);
             DataGridViewHelper.ConfigurarColuna(grdClientes, "TipoPessoa", "", 0, visivel: false);
 
-            switch (cboTipoFiltro.Text){
+            switch (cboTipoFiltro.Text)
+            {
                 case "Razão Social":
                 case "Nome Fantasia":
                 case "CPF/CNPJ":
@@ -367,7 +368,7 @@ namespace ProjetoCadastro
             rbFisica.CheckedChanged -= RadioButton_CheckedChanged;
             rbJuridica.CheckedChanged -= RadioButton_CheckedChanged;
 
-            if (_cliente.TipoPessoa == ETipoPessoa.Fisica)
+            if (_cliente.TipoPessoa == ETipoPessoa.Física)
             {
                 rbFisica.Checked = true;
                 txtCpfCnpj.Mask = "000.000.000-00";
