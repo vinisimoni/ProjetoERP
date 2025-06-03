@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoCadastro.Data;
 using ProjetoERP.Domain;
+using ProjetoERP.Domain.Enums;
 
 namespace ProjetoERP.Repositories
 {
@@ -55,6 +56,43 @@ namespace ProjetoERP.Repositories
                     c.Unidade,
                     c.Situacao
                 })
+                .ToList<object>();
+        }
+
+        public IEnumerable<object> CarregarMateriaisControlaEstoque()
+        {
+            return _context.Materiais
+                .AsNoTracking()
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Descricao,
+                    c.Referencia,
+                    c.Unidade,
+                    c.Situacao,
+                    c.ControlaEstoque
+                })
+                .Where(x => x.ControlaEstoque == true && x.Situacao == "Ativo")
+                .ToList<object>();
+        }
+
+        public IEnumerable<object> CarregarMovMateriaisManual(int id)
+        {
+            return _context.MovimentacaoEstoque
+                .AsNoTracking()
+                .Select(c => new
+                {
+                    c.Id,
+                    c.DataMovimentacao,
+                    c.TipoMovimentacao,
+                    c.Descricao,
+                    c.IdMaterial,
+                    c.Quantidade,
+                    c.OrigemMovimentacao                    
+                })
+                .Where(c => c.IdMaterial == id && 
+                    c.OrigemMovimentacao == EOrigemMovMaterial.Manual)
+                .OrderByDescending(m => m.DataMovimentacao)
                 .ToList<object>();
         }
     }

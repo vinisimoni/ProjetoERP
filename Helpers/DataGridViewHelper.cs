@@ -23,7 +23,7 @@ namespace ProjetoERP.Helpers
             coluna.Visible = visivel;
 
             ////cores
-            if (nomeColuna == "Situacao")
+            if (nomeColuna == "Situacao" || nomeColuna == "TipoMovimentacao")
             {
                 grid.RowPrePaint += (sender, e) =>
                 {
@@ -35,11 +35,13 @@ namespace ProjetoERP.Helpers
                     switch (valor)
                     {
                         case "inativo":
+                        case "saída":
                             row.DefaultCellStyle.ForeColor = Color.Red;
                             row.DefaultCellStyle.SelectionBackColor = Color.Red;
                             break;
 
                         case "ativo":
+                        case "entrada":
                             row.DefaultCellStyle.ForeColor = Color.Blue;
                             break;
                     }
@@ -60,6 +62,10 @@ namespace ProjetoERP.Helpers
                 {
                     case "moeda":
                         coluna.DefaultCellStyle.Format = "C2";
+                        break;
+
+                    case "quantidade":
+                        coluna.DefaultCellStyle.Format = "N3";
                         break;
 
                     case "data":

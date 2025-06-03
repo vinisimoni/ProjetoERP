@@ -34,7 +34,7 @@ namespace ProjetoERP.Services
             _repository.Excluir(id);
         }
 
-        public void DetachedCliente(Material material)
+        public void DetachedMaterial(Material material)
         {
             _repository.DetachedMaterial(material);
         }
@@ -42,6 +42,16 @@ namespace ProjetoERP.Services
         public IEnumerable<object> CarregarMateriais()
         {
             return _repository.CarregarMateriais();
+        }
+
+        public IEnumerable<object> CarregarMovMateriaisManual(int id)
+        {
+            return _repository.CarregarMovMateriaisManual(id);
+        }
+
+        public IEnumerable<object> CarregarMateriaisControlaEstoque()
+        {
+            return _repository.CarregarMateriaisControlaEstoque();
         }
     }
 }

@@ -221,7 +221,7 @@ namespace ProjetoERP.Telas
         private void grdMateriais_SelectionChanged(object sender, EventArgs e)
         {
             AtualizarBotaoExcluir();
-        }        
+        }
 
         private void AtualizarCampoValorVenda()
         {
@@ -250,6 +250,12 @@ namespace ProjetoERP.Telas
                 // Bloqueia qualquer outro caractere
                 e.Handled = true;
             }
+        }
+
+        private void mnuEstoque_Click(object sender, EventArgs e)
+        {
+            frmEntradaSaidaEstoque entradaSaidaEst = new frmEntradaSaidaEstoque();
+            entradaSaidaEst.ShowDialog();
         }
     }
 }

@@ -48,9 +48,13 @@
             label1 = new Label();
             txtDescricao = new TextBox();
             txtCodigo = new TextBox();
+            menuStrip1 = new MenuStrip();
+            mnuEstoque = new ToolStripMenuItem();
+            mnuValorVenda = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)grdMateriais).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // grdMateriais
@@ -60,7 +64,7 @@
             grdMateriais.AllowUserToResizeColumns = false;
             grdMateriais.AllowUserToResizeRows = false;
             grdMateriais.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            grdMateriais.Location = new Point(12, 12);
+            grdMateriais.Location = new Point(12, 36);
             grdMateriais.MultiSelect = false;
             grdMateriais.Name = "grdMateriais";
             grdMateriais.ReadOnly = true;
@@ -74,7 +78,7 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(606, 334);
+            btnExcluir.Location = new Point(606, 358);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(75, 23);
             btnExcluir.TabIndex = 6;
@@ -84,7 +88,7 @@
             // 
             // btnIncluir
             // 
-            btnIncluir.Location = new Point(525, 334);
+            btnIncluir.Location = new Point(525, 358);
             btnIncluir.Name = "btnIncluir";
             btnIncluir.Size = new Size(75, 23);
             btnIncluir.TabIndex = 5;
@@ -96,7 +100,7 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Enabled = false;
-            tabControl1.Location = new Point(12, 168);
+            tabControl1.Location = new Point(12, 192);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(669, 160);
@@ -261,16 +265,40 @@
             txtCodigo.TabIndex = 0;
             txtCodigo.TextAlign = HorizontalAlignment.Center;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { mnuEstoque, mnuValorVenda });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(691, 24);
+            menuStrip1.TabIndex = 7;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // mnuEstoque
+            // 
+            mnuEstoque.Name = "mnuEstoque";
+            mnuEstoque.Size = new Size(61, 20);
+            mnuEstoque.Text = "Estoque";
+            mnuEstoque.Click += mnuEstoque_Click;
+            // 
+            // mnuValorVenda
+            // 
+            mnuValorVenda.Name = "mnuValorVenda";
+            mnuValorVenda.Size = new Size(80, 20);
+            mnuValorVenda.Text = "Valor Venda";
+            // 
             // frmCadastroMaterial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(691, 364);
+            ClientSize = new Size(691, 402);
             Controls.Add(btnExcluir);
             Controls.Add(btnIncluir);
             Controls.Add(tabControl1);
             Controls.Add(grdMateriais);
+            Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCadastroMaterial";
@@ -281,7 +309,10 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -306,5 +337,8 @@
         private TextBox txtValorVenda;
         private Label label4;
         private TextBox txtEstoqueAtual;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem mnuEstoque;
+        private ToolStripMenuItem mnuValorVenda;
     }
 }
