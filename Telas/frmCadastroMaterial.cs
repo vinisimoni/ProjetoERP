@@ -1,14 +1,12 @@
-﻿using ProjetoCadastro.Domain;
-using ProjetoCadastro.Domain.Enums;
-using ProjetoERP.Domain;
+﻿using ProjetoERP.Domain;
 using ProjetoERP.Helpers;
-using ProjetoERP.Repositories;
+using ProjetoERP.Services;
 
 namespace ProjetoERP.Telas
 {
     public partial class frmCadastroMaterial : Form
     {
-        private MaterialRepository _materialRepo = new MaterialRepository();
+        private MaterialService _materialService = new MaterialService();
         private Material _material = new Material();
         private long _valorInterno = 0;
 
@@ -58,7 +56,7 @@ namespace ProjetoERP.Telas
                 linhaSelecionada = grdMateriais.CurrentRow.Index;
 
             //grdMateriais.DataSource = _clienteRepo.CarregarClientesFiltro(cboFiltroSituacao.Text, cboFiltroPessoa.Text, cboTipoFiltro.Text, txtFiltro.Text);
-            grdMateriais.DataSource = _materialRepo.CarregarMateriais();
+            grdMateriais.DataSource = _materialService.CarregarMateriais();
 
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Descricao", "Descrição", 230);
@@ -129,11 +127,11 @@ namespace ProjetoERP.Telas
 
                 if (_material.Id == 0)
                 {
-                    _materialRepo.Incluir(_material);
+                    _materialService.Incluir(_material);
                 }
                 else
                 {
-                    _materialRepo.Atualizar(_material);
+                    _materialService.Atualizar(_material);
                 }
 
                 LimparFormulario();
@@ -144,7 +142,7 @@ namespace ProjetoERP.Telas
         private void LimparCampos()
         {
             if (_material.Id != 0)
-                _materialRepo.DetachedMaterial(_material);
+                _materialService.DetachedMaterial(_material);
 
             txtCodigo.Text = "0";
             txtDescricao.Text = string.Empty;
@@ -195,7 +193,7 @@ namespace ProjetoERP.Telas
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _materialRepo.Excluir(Convert.ToInt32(grdMateriais.CurrentRow.Cells["Id"].Value));
+                    _materialService.Excluir(Convert.ToInt32(grdMateriais.CurrentRow.Cells["Id"].Value));
                     CarregarGridMateriais();
                 }
             }
@@ -214,7 +212,7 @@ namespace ProjetoERP.Telas
             var id = row.Cells["Id"].Value;
             if (id == null) return;
 
-            _material = _materialRepo.ObterPorId(Convert.ToInt32(id));
+            _material = _materialService.ObterPorId(Convert.ToInt32(id));
 
             ConfigurarDataBindings();
             HabilitarParaEdicao();

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoCadastro.Data;
-using ProjetoCadastro.Domain;
 using ProjetoERP.Domain;
 
 namespace ProjetoERP.Repositories

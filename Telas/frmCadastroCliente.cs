@@ -1,13 +1,13 @@
 using ProjetoCadastro.Domain;
 using ProjetoCadastro.Domain.Enums;
-using ProjetoCadastro.Repositories;
 using ProjetoERP.Helpers;
+using ProjetoERP.Services;
 
 namespace ProjetoCadastro
 {
     public partial class frmCadastroCliente : Form
     {
-        private ClienteRepository _clienteRepo = new ClienteRepository();
+        private ClienteService _clienteService = new ClienteService();
         private Cliente _cliente = new Cliente();
 
         public frmCadastroCliente()
@@ -61,11 +61,11 @@ namespace ProjetoCadastro
 
                 if (_cliente.Id == 0)
                 {
-                    _clienteRepo.Incluir(_cliente);
+                    _clienteService.Incluir(_cliente);
                 }
                 else
                 {
-                    _clienteRepo.Atualizar(_cliente);
+                    _clienteService.Atualizar(_cliente);
                 }
 
                 LimparFormulario();
@@ -83,7 +83,7 @@ namespace ProjetoCadastro
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _clienteRepo.Excluir(Convert.ToInt32(grdClientes.CurrentRow.Cells["Id"].Value));
+                    _clienteService.Excluir(Convert.ToInt32(grdClientes.CurrentRow.Cells["Id"].Value));
                     CarregarGridClientes();
                 }
             }
@@ -110,7 +110,7 @@ namespace ProjetoCadastro
         private void LimparCampos()
         {
             if (_cliente.Id != 0)
-                _clienteRepo.DetachedCliente(_cliente);
+                _clienteService.DetachedCliente(_cliente);
 
             txtCodigo.Text = "0";
             txtCpfCnpj.Text = string.Empty;
@@ -317,7 +317,7 @@ namespace ProjetoCadastro
             if (grdClientes.CurrentRow != null)
                 linhaSelecionada = grdClientes.CurrentRow.Index;
 
-            grdClientes.DataSource = _clienteRepo.CarregarClientesFiltro(cboFiltroSituacao.Text, cboFiltroPessoa.Text, cboTipoFiltro.Text, txtFiltro.Text);
+            grdClientes.DataSource = _clienteService.CarregarClientesFiltro(cboFiltroSituacao.Text, cboFiltroPessoa.Text, cboTipoFiltro.Text, txtFiltro.Text);
 
             DataGridViewHelper.ConfigurarColuna(grdClientes, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
             DataGridViewHelper.ConfigurarColuna(grdClientes, "CpfCnpj", "CPF/CNPJ", 150, DataGridViewContentAlignment.MiddleCenter, "CpfCnpj");
@@ -363,7 +363,7 @@ namespace ProjetoCadastro
             var id = row.Cells["Id"].Value;
             if (id == null) return;
 
-            _cliente = _clienteRepo.ObterPorId(Convert.ToInt32(id));
+            _cliente = _clienteService.ObterPorId(Convert.ToInt32(id));
 
             rbFisica.CheckedChanged -= RadioButton_CheckedChanged;
             rbJuridica.CheckedChanged -= RadioButton_CheckedChanged;
