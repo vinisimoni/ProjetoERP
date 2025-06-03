@@ -8,7 +8,7 @@ namespace ProjetoERP.Telas
 {
     public partial class frmCadastroMaterial : Form
     {
-        private MaterialRepositorio _materialRepo = new MaterialRepositorio();
+        private MaterialRepository _materialRepo = new MaterialRepository();
         private Material _material = new Material();
         private long _valorInterno = 0;
 

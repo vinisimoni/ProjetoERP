@@ -5,11 +5,11 @@ using ProjetoERP.Domain;
 
 namespace ProjetoERP.Repositories
 {
-    public class MaterialRepositorio
+    public class MaterialRepository
     {
         private readonly DataContext _context;
 
-        public MaterialRepositorio()
+        public MaterialRepository()
         {
             _context = new DataContext();
         }

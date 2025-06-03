@@ -2,16 +2,14 @@
 using ProjetoCadastro.Data;
 using ProjetoCadastro.Domain;
 using ProjetoCadastro.Domain.Enums;
-using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
 
 namespace ProjetoCadastro.Repositories
 {
-    public class ClienteRepositorio
+    public class ClienteRepository
     {
         private readonly DataContext _context;
 
-        public ClienteRepositorio()
+        public ClienteRepository()
         {
             _context = new DataContext();
         }

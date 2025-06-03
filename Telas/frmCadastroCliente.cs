@@ -7,7 +7,7 @@ namespace ProjetoCadastro
 {
     public partial class frmCadastroCliente : Form
     {
-        private ClienteRepositorio _clienteRepo = new ClienteRepositorio();
+        private ClienteRepository _clienteRepo = new ClienteRepository();
         private Cliente _cliente = new Cliente();
 
         public frmCadastroCliente()
