@@ -21,13 +21,13 @@ namespace ProjetoERP.Telas
         private void btnCadClientes_Click(object sender, EventArgs e)
         {
             frmCadastroCliente cadCli = new frmCadastroCliente();
-            cadCli.ShowDialog();
+            cadCli.ShowDialog(this);
         }
 
         private void btnCadMateriais_Click(object sender, EventArgs e)
         {
             frmCadastroMaterial cadMat = new frmCadastroMaterial();
-            cadMat.Show();
+            cadMat.ShowDialog(this);
         }
     }
 }

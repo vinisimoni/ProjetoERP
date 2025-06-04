@@ -8,7 +8,9 @@ namespace ProjetoERP.Telas
     {
         private MaterialService _materialService = new MaterialService();
         private Material _material = new Material();
+
         private long _valorInterno = 0;
+        private bool _negativo = false;
 
         public frmCadastroMaterial()
         {
@@ -113,6 +115,7 @@ namespace ProjetoERP.Telas
         {
             if (btnIncluir.Text == "Incluir")
             {
+                _material.Id = 0;
                 cboSitucao.Text = "Ativo";
                 txtEstoqueAtual.Text = "0,000";
                 txtValorVenda.Text = "0,00";
@@ -160,6 +163,8 @@ namespace ProjetoERP.Telas
             btnIncluir.Text = "Incluir";
             btnExcluir.Text = "Excluir";
             cboSitucao.Text = "Ativo";
+            _negativo = false;
+            _valorInterno = 0;
             LimparCampos();
             AtualizarBotaoExcluir();
         }
@@ -223,39 +228,32 @@ namespace ProjetoERP.Telas
             AtualizarBotaoExcluir();
         }
 
-        private void AtualizarCampoValorVenda()
-        {
-            decimal valor = _valorInterno / 100m;
-            txtValorVenda.Text = valor.ToString("N2");
-            txtValorVenda.SelectionStart = txtValorVenda.Text.Length;
-        }
-
         private void txtValorVenda_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar))
-            {
-                // Concatena dígito e mantém valor interno
-                _valorInterno = _valorInterno * 10 + (e.KeyChar - '0');
-                AtualizarCampoValorVenda();
-                e.Handled = true;
-            }
-            else if (e.KeyChar == (char)Keys.Back)
-            {
-                _valorInterno = _valorInterno / 10;
-                AtualizarCampoValorVenda();
-                e.Handled = true;
-            }
-            else
-            {
-                // Bloqueia qualquer outro caractere
-                e.Handled = true;
-            }
+            var resultado = TextBoxHelper.ProcessarTecla(
+                _valorInterno, e.KeyChar, ref _negativo, out bool handled, casasDecimais: 2);
+
+            _valorInterno = resultado.NovoValorInterno;
+            txtValorVenda.Text = resultado.TextoFormatado;
+            txtValorVenda.SelectionStart = txtValorVenda.Text.Length;
+            e.Handled = handled;
         }
 
         private void mnuEstoque_Click(object sender, EventArgs e)
         {
             frmEntradaSaidaEstoque entradaSaidaEst = new frmEntradaSaidaEstoque();
             entradaSaidaEst.ShowDialog();
+        }
+
+        private void txtEstoqueAtual_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var resultado = TextBoxHelper.ProcessarTecla(
+                _valorInterno, e.KeyChar, ref _negativo, out bool handled, 3, true);
+
+            _valorInterno = resultado.NovoValorInterno;
+            txtEstoqueAtual.Text = resultado.TextoFormatado;
+            txtEstoqueAtual.SelectionStart = txtEstoqueAtual.Text.Length;
+            e.Handled = handled;
         }
     }
 }

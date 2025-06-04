@@ -24,6 +24,29 @@ namespace ProjetoERP.Services
             _repository.Atualizar(material);
         }
 
+        public void Incluir(MovimentacaoEstoque movEst)
+        {
+            movEst.DataMovimentacao = DateTime.Now;            
+            _repository.IncluirMovEst(movEst);
+            AtualizarEstoqueMaterial(movEst.IdMaterial, movEst.TipoMovimentacao, movEst.Quantidade);
+        }
+
+        public void AtualizarEstoqueMaterial(int idMaterial, string tipoMov, decimal quantidade)
+        {
+            Material material = ObterPorId(idMaterial);
+
+            if(tipoMov == "Entrada")
+            {
+                material.EstoqueAtual += quantidade;
+            }
+            else
+            {
+                material.EstoqueAtual -= quantidade;
+            }
+
+            Atualizar(material);
+        }
+
         public Material ObterPorId(int id)
         {
             return _repository.ObterPorId(id);
@@ -49,9 +72,15 @@ namespace ProjetoERP.Services
             return _repository.CarregarMovMateriaisManual(id);
         }
 
-        public IEnumerable<object> CarregarMateriaisControlaEstoque()
+        public IEnumerable<object> CarregarMateriaisFiltro(string situacao, string estoque,
+            string filtroSelecionado, string filtro, bool somenteControlaEstoque = false)
         {
-            return _repository.CarregarMateriaisControlaEstoque();
+            return _repository.CarregarMateriaisFiltro(situacao, estoque, filtroSelecionado, filtro, somenteControlaEstoque);
+        }
+
+        public string ObterDescricaoPorId(int id)
+        {
+            return _repository.ObterDescricaoPorId(id);
         }
     }
 }

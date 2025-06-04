@@ -168,6 +168,7 @@
             txtEstoqueAtual.Size = new Size(85, 23);
             txtEstoqueAtual.TabIndex = 25;
             txtEstoqueAtual.TextAlign = HorizontalAlignment.Right;
+            txtEstoqueAtual.KeyPress += txtEstoqueAtual_KeyPress;
             // 
             // cboSitucao
             // 
@@ -303,6 +304,7 @@
             MinimizeBox = false;
             Name = "frmCadastroMaterial";
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Material";
             ((System.ComponentModel.ISupportInitialize)grdMateriais).EndInit();

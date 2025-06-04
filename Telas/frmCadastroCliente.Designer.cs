@@ -543,6 +543,7 @@
             MinimizeBox = false;
             Name = "frmCadastroCliente";
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Clientes";
             ((System.ComponentModel.ISupportInitialize)grdClientes).EndInit();

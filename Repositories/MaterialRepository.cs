@@ -2,6 +2,7 @@
 using ProjetoCadastro.Data;
 using ProjetoERP.Domain;
 using ProjetoERP.Domain.Enums;
+using System.Net.Http.Headers;
 
 namespace ProjetoERP.Repositories
 {
@@ -26,9 +27,24 @@ namespace ProjetoERP.Repositories
             _context.SaveChanges();
         }
 
+        public void IncluirMovEst(MovimentacaoEstoque movEst)
+        {
+            _context.MovimentacaoEstoque.Add(movEst);
+            _context.SaveChanges();
+        }
+
         public Material ObterPorId(int id)
         {
             return _context.Materiais.FirstOrDefault(c => c.Id == id);
+        }
+
+        public string ObterDescricaoPorId(int id)
+        {
+            return _context.Materiais
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.Descricao)
+                .FirstOrDefault();
         }
 
         public void Excluir(int id)
@@ -59,21 +75,57 @@ namespace ProjetoERP.Repositories
                 .ToList<object>();
         }
 
-        public IEnumerable<object> CarregarMateriaisControlaEstoque()
+        public IEnumerable<object> CarregarMateriaisFiltro(
+            string situacao,
+            string estoque,
+            string filtroSelecionado,
+            string filtro,
+            bool somenteControlaEstoque = false)
         {
-            return _context.Materiais
-                .AsNoTracking()
-                .Select(c => new
+            var query = _context.Materiais.AsNoTracking();
+
+            if (somenteControlaEstoque)
+            {
+                query = query.Where(c => c.ControlaEstoque == true);
+            }
+
+            if (situacao != "Ambos")
+            {
+                query = query.Where(c => c.Situacao == situacao);
+            }
+
+            if (estoque == "Com Estoque")
+            {
+                query = query.Where(c =>
+                    (c.EstoqueAtual > 0 && c.ControlaEstoque) || !c.ControlaEstoque);
+            }
+            else if (estoque == "Sem Estoque")
+            {
+                query = query.Where(c => c.EstoqueAtual <= 0 && c.ControlaEstoque);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filtro))
+            {
+                switch (filtroSelecionado)
                 {
-                    c.Id,
-                    c.Descricao,
-                    c.Referencia,
-                    c.Unidade,
-                    c.Situacao,
-                    c.ControlaEstoque
-                })
-                .Where(x => x.ControlaEstoque == true && x.Situacao == "Ativo")
-                .ToList<object>();
+                    case "Descrição":
+                        query = query.Where(c => c.Descricao.Contains(filtro));
+                        break;
+
+                    case "Referência":
+                        query = query.Where(c => c.Referencia.Contains(filtro));
+                        break;
+                }
+            }
+
+            return query.Select(c => new
+            {
+                c.Id,
+                c.Descricao,
+                c.Referencia,
+                c.Unidade,
+                c.Situacao
+            }).ToList<object>();
         }
 
         public IEnumerable<object> CarregarMovMateriaisManual(int id)
