@@ -30,6 +30,8 @@
         {
             btnCadClientes = new Button();
             btnCadMateriais = new Button();
+            btnLancEstoque = new Button();
+            btnValorVenda = new Button();
             SuspendLayout();
             // 
             // btnCadClientes
@@ -52,11 +54,33 @@
             btnCadMateriais.UseVisualStyleBackColor = true;
             btnCadMateriais.Click += btnCadMateriais_Click;
             // 
+            // btnLancEstoque
+            // 
+            btnLancEstoque.Location = new Point(170, 22);
+            btnLancEstoque.Name = "btnLancEstoque";
+            btnLancEstoque.Size = new Size(85, 52);
+            btnLancEstoque.TabIndex = 3;
+            btnLancEstoque.Text = "Lançamento de Estoque";
+            btnLancEstoque.UseVisualStyleBackColor = true;
+            btnLancEstoque.Click += btnLancEstoque_Click;
+            // 
+            // btnValorVenda
+            // 
+            btnValorVenda.Location = new Point(170, 80);
+            btnValorVenda.Name = "btnValorVenda";
+            btnValorVenda.Size = new Size(85, 23);
+            btnValorVenda.TabIndex = 4;
+            btnValorVenda.Text = "Valor Venda";
+            btnValorVenda.UseVisualStyleBackColor = true;
+            btnValorVenda.Click += btnValorVenda_Click;
+            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnValorVenda);
+            Controls.Add(btnLancEstoque);
             Controls.Add(btnCadMateriais);
             Controls.Add(btnCadClientes);
             IsMdiContainer = true;
@@ -72,5 +96,7 @@
 
         private Button btnCadClientes;
         private Button btnCadMateriais;
+        private Button btnLancEstoque;
+        private Button btnValorVenda;
     }
 }

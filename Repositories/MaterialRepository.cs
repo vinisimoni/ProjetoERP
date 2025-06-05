@@ -33,6 +33,12 @@ namespace ProjetoERP.Repositories
             _context.SaveChanges();
         }
 
+        public void IncluirHistValorVenda(HistoricoValorVenda hisVal)
+        {
+            _context.HistoricoValorVenda.Add(hisVal);
+            _context.SaveChanges();
+        }
+
         public Material ObterPorId(int id)
         {
             return _context.Materiais.FirstOrDefault(c => c.Id == id);
@@ -53,6 +59,15 @@ namespace ProjetoERP.Repositories
                 .AsNoTracking()
                 .Where(c => c.Id == id)
                 .Select(c => c.EstoqueAtual)
+                .FirstOrDefault();
+        }
+
+        public decimal ObterValorVendaPorId(int id)
+        {
+            return _context.Materiais
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.ValorVenda)
                 .FirstOrDefault();
         }
 
@@ -154,6 +169,22 @@ namespace ProjetoERP.Repositories
                 .Where(c => c.IdMaterial == id && 
                     c.OrigemMovimentacao == EOrigemMovMaterial.Manual)
                 .OrderByDescending(m => m.DataMovimentacao)
+                .ToList<object>();
+        }
+
+        public IEnumerable<object> CarregarValoresVendaMaterial(int id)
+        {
+            return _context.HistoricoValorVenda
+                .AsNoTracking()
+                .Select(c => new
+                {
+                    c.IdMaterial,
+                    c.DataLancamento,
+                    c.ValorAnterior,
+                    c.ValorNovo
+                })
+                .Where(c => c.IdMaterial == id)
+                .OrderByDescending(m => m.DataLancamento)
                 .ToList<object>();
         }
     }

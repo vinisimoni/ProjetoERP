@@ -41,7 +41,7 @@ namespace ProjetoERP.Telas
 
         private void btnSelecionaMaterial_Click(object sender, EventArgs e)
         {
-            frmSelecionaMaterial selecionaMat = new frmSelecionaMaterial(somenteAtivos: true);
+            frmSelecionaMaterial selecionaMat = new frmSelecionaMaterial(somenteAtivos: true, somenteControlaEstoque: true);
 
             if (selecionaMat.ShowDialog() == DialogResult.OK && selecionaMat.MaterialSelecionado != 0)
             {

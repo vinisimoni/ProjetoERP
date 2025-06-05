@@ -142,6 +142,7 @@
             // 
             // txtValorVenda
             // 
+            txtValorVenda.Enabled = false;
             txtValorVenda.Location = new Point(426, 96);
             txtValorVenda.MaxLength = 2;
             txtValorVenda.Name = "txtValorVenda";
@@ -287,6 +288,7 @@
             mnuValorVenda.Name = "mnuValorVenda";
             mnuValorVenda.Size = new Size(80, 20);
             mnuValorVenda.Text = "Valor Venda";
+            mnuValorVenda.Click += mnuValorVenda_Click;
             // 
             // frmCadastroMaterial
             // 

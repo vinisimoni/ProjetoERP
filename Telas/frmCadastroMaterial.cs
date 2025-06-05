@@ -255,5 +255,11 @@ namespace ProjetoERP.Telas
             txtEstoqueAtual.SelectionStart = txtEstoqueAtual.Text.Length;
             e.Handled = handled;
         }
+
+        private void mnuValorVenda_Click(object sender, EventArgs e)
+        {
+            frmValorVendaMaterial valorVenda = new frmValorVendaMaterial();
+            valorVenda.ShowDialog();
+        }
     }
 }

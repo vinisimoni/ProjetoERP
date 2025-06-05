@@ -18,13 +18,15 @@ namespace ProjetoERP.Telas.Seleciona
 
         private bool _somenteComEstoque;
         private bool _somenteAtivos;
+        private bool _somenteControlaEstoque;
         private MaterialService _materialService = new MaterialService();
 
-        public frmSelecionaMaterial(bool somenteComEstoque = false, bool somenteAtivos = false)
+        public frmSelecionaMaterial(bool somenteComEstoque = false, bool somenteAtivos = false, bool somenteControlaEstoque = false)
         {
             InitializeComponent();
             _somenteComEstoque = somenteComEstoque;
             _somenteAtivos = somenteAtivos;
+            _somenteControlaEstoque = somenteControlaEstoque;
         }
 
         private void frmSelecionaMaterial_Load(object sender, EventArgs e)
@@ -65,7 +67,7 @@ namespace ProjetoERP.Telas.Seleciona
             if (grdMateriais.CurrentRow != null)
                 linhaSelecionada = grdMateriais.CurrentRow.Index;
 
-            grdMateriais.DataSource = _materialService.CarregarMateriaisFiltro(cboFiltroSituacao.Text, cboFiltroEstoque.Text, cboFiltroTipo.Text, txtFiltro.Text, true);
+            grdMateriais.DataSource = _materialService.CarregarMateriaisFiltro(cboFiltroSituacao.Text, cboFiltroEstoque.Text, cboFiltroTipo.Text, txtFiltro.Text, _somenteControlaEstoque);
 
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Descricao", "Descrição", 230);
