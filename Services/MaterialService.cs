@@ -26,23 +26,28 @@ namespace ProjetoERP.Services
 
         public void Incluir(MovimentacaoEstoque movEst)
         {
-            movEst.DataMovimentacao = DateTime.Now;            
-            _repository.IncluirMovEst(movEst);
-            AtualizarEstoqueMaterial(movEst.IdMaterial, movEst.TipoMovimentacao, movEst.Quantidade);
-        }
+            movEst.DataMovimentacao = DateTime.Now;
+            movEst.EstoqueAnterior = ObterEstoquePorId(movEst.IdMaterial);
 
-        public void AtualizarEstoqueMaterial(int idMaterial, string tipoMov, decimal quantidade)
-        {
-            Material material = ObterPorId(idMaterial);
-
-            if(tipoMov == "Entrada")
+            if (movEst.TipoMovimentacao == "Entrada")
             {
-                material.EstoqueAtual += quantidade;
+                movEst.EstoqueNovo = movEst.EstoqueAnterior + movEst.Quantidade;
             }
             else
             {
-                material.EstoqueAtual -= quantidade;
+                movEst.EstoqueNovo = movEst.EstoqueAnterior - movEst.Quantidade;
             }
+
+            _repository.IncluirMovEst(movEst);
+
+            AtualizarEstoqueMaterial(movEst.IdMaterial, movEst.TipoMovimentacao, movEst.EstoqueNovo);
+        }
+
+        public void AtualizarEstoqueMaterial(int idMaterial, string tipoMov, decimal estoqueNovo)
+        {
+            Material material = ObterPorId(idMaterial);
+
+            material.EstoqueAtual = estoqueNovo;
 
             Atualizar(material);
         }
@@ -81,6 +86,11 @@ namespace ProjetoERP.Services
         public string ObterDescricaoPorId(int id)
         {
             return _repository.ObterDescricaoPorId(id);
+        }
+
+        public decimal ObterEstoquePorId(int id)
+        {
+            return _repository.ObterEstoquePorId(id);
         }
     }
 }

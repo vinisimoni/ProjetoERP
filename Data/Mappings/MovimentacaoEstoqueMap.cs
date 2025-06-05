@@ -52,6 +52,16 @@ namespace ProjetoERP.Data.Mappings
                     .HasColumnName("DataMovimentacao")
                     .HasColumnType("DATETIME2");
 
+            builder.Property(x => x.EstoqueAnterior)
+                    .IsRequired()
+                    .HasColumnName("EstoqueAnterior")
+                    .HasColumnType("DECIMAL(15,5)");
+
+            builder.Property(x => x.EstoqueNovo)
+                    .IsRequired()
+                    .HasColumnName("EstoqueNovo")
+                    .HasColumnType("DECIMAL(15,5)");
+
             builder.HasOne(m => m.Materiais)
                    .WithMany() 
                    .HasForeignKey(m => m.IdMaterial)

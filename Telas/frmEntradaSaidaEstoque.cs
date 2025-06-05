@@ -77,6 +77,7 @@ namespace ProjetoERP.Telas
                 _movEst.Id = 0;
                 _movEst.OrigemMovimentacao = EOrigemMovMaterial.Manual;
                 cboTipo.Text = "Entrada";
+                txtQuantidade.Text = "0,000";
                 HabilitarParaEdicao();                
             }
             else

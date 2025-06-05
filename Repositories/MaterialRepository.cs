@@ -47,6 +47,15 @@ namespace ProjetoERP.Repositories
                 .FirstOrDefault();
         }
 
+        public decimal ObterEstoquePorId(int id)
+        {
+            return _context.Materiais
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.EstoqueAtual)
+                .FirstOrDefault();
+        }
+
         public void Excluir(int id)
         {
             Material material = _context.Materiais.FirstOrDefault(c => c.Id == id);

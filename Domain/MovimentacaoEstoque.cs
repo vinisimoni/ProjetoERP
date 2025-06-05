@@ -12,6 +12,9 @@ namespace ProjetoERP.Domain
         public int? IdOrigemMovimentacao { get; set; }
         public decimal Quantidade { get; set; }
         public DateTime DataMovimentacao { get; set; }
+        public decimal EstoqueAnterior { get; set; }
+        public decimal EstoqueNovo { get; set; }
+
         public Material Materiais { get; set; }
     }
 }
