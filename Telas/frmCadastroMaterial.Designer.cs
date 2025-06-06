@@ -228,9 +228,9 @@
             // 
             // txtReferencia
             // 
-            txtReferencia.Location = new Point(107, 67);
+            txtReferencia.Location = new Point(86, 67);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.Size = new Size(404, 23);
+            txtReferencia.Size = new Size(425, 23);
             txtReferencia.TabIndex = 3;
             // 
             // label2
@@ -253,15 +253,15 @@
             // 
             // txtDescricao
             // 
-            txtDescricao.Location = new Point(107, 38);
+            txtDescricao.Location = new Point(86, 38);
             txtDescricao.Name = "txtDescricao";
-            txtDescricao.Size = new Size(544, 23);
+            txtDescricao.Size = new Size(565, 23);
             txtDescricao.TabIndex = 2;
             // 
             // txtCodigo
             // 
             txtCodigo.Enabled = false;
-            txtCodigo.Location = new Point(107, 8);
+            txtCodigo.Location = new Point(86, 8);
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(58, 23);
             txtCodigo.TabIndex = 0;

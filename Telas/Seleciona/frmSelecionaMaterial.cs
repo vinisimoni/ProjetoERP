@@ -70,7 +70,7 @@ namespace ProjetoERP.Telas.Seleciona
             grdMateriais.DataSource = _materialService.CarregarMateriaisFiltro(cboFiltroSituacao.Text, cboFiltroEstoque.Text, cboFiltroTipo.Text, txtFiltro.Text, _somenteControlaEstoque);
 
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Id", "Código", 100, DataGridViewContentAlignment.MiddleRight);
-            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Descricao", "Descrição", 230);
+            DataGridViewHelper.ConfigurarColuna(grdMateriais, "Descricao", "Descrição", 280);
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Referencia", "Referência", 230);
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Unidade", "UN", 105);
             DataGridViewHelper.ConfigurarColuna(grdMateriais, "Situacao", "", 0, visivel: false);

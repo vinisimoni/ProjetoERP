@@ -69,7 +69,7 @@ namespace ProjetoERP.Telas
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigoMaterial.Text))
+            if (string.IsNullOrEmpty(txtCodigoMaterial.Text) || txtCodigoMaterial.Text == "0")
             {
                 MessageBox.Show("Informe o material.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

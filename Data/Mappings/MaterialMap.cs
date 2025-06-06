@@ -55,7 +55,6 @@ namespace ProjetoCadastro.Data.Mappings
                     .HasColumnName("ValorVenda")
                     .HasColumnType("DECIMAL(15,2)");
 
-
         }
     }
 }

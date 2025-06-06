@@ -20,5 +20,6 @@ namespace ProjetoCadastro.Data
         public DbSet<Material> Materiais { get; set; }
         public DbSet<MovimentacaoEstoque> MovimentacaoEstoque { get; set; }
         public DbSet<HistoricoValorVenda> HistoricoValorVenda { get; set; }
+        public DbSet<Conta> Contas { get; set; }
     }
 }

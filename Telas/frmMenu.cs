@@ -41,5 +41,11 @@ namespace ProjetoERP.Telas
             frmEntradaSaidaEstoque tela = new frmEntradaSaidaEstoque();
             tela.ShowDialog(this);
         }
+
+        private void btnCadContas_Click(object sender, EventArgs e)
+        {
+            frmCadastroConta tela = new frmCadastroConta();
+            tela.ShowDialog(this);
+        }
     }
 }

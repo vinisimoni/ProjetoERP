@@ -32,6 +32,7 @@
             btnCadMateriais = new Button();
             btnLancEstoque = new Button();
             btnValorVenda = new Button();
+            btnCadContas = new Button();
             SuspendLayout();
             // 
             // btnCadClientes
@@ -74,11 +75,22 @@
             btnValorVenda.UseVisualStyleBackColor = true;
             btnValorVenda.Click += btnValorVenda_Click;
             // 
+            // btnCadContas
+            // 
+            btnCadContas.Location = new Point(48, 80);
+            btnCadContas.Name = "btnCadContas";
+            btnCadContas.Size = new Size(75, 23);
+            btnCadContas.TabIndex = 6;
+            btnCadContas.Text = "Contas";
+            btnCadContas.UseVisualStyleBackColor = true;
+            btnCadContas.Click += btnCadContas_Click;
+            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnCadContas);
             Controls.Add(btnValorVenda);
             Controls.Add(btnLancEstoque);
             Controls.Add(btnCadMateriais);
@@ -98,5 +110,6 @@
         private Button btnCadMateriais;
         private Button btnLancEstoque;
         private Button btnValorVenda;
+        private Button btnCadContas;
     }
 }
