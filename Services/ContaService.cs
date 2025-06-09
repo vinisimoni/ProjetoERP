@@ -27,6 +27,11 @@ namespace ProjetoERP.Services
             return _repository.ObterPorId(id);
         }
 
+        public string ObterDescricaoPorId(int id)
+        {
+            return _repository.ObterDescricaoPorId(id);
+        }
+
         public void Excluir(int id)
         {
             _repository.Excluir(id);

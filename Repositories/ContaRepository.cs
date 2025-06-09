@@ -38,6 +38,15 @@ namespace ProjetoERP.Repositories
             return _context.Contas.FirstOrDefault(c => c.Id == id);
         }
 
+        public string ObterDescricaoPorId(int id)
+        {
+            return _context.Contas
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.Descricao)
+                .FirstOrDefault();
+        }
+
         public void Detached(Conta conta)
         {
             _context.Entry(conta).State = EntityState.Detached;

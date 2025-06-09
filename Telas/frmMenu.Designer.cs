@@ -33,6 +33,7 @@
             btnLancEstoque = new Button();
             btnValorVenda = new Button();
             btnCadContas = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // btnCadClientes
@@ -85,11 +86,22 @@
             btnCadContas.UseVisualStyleBackColor = true;
             btnCadContas.Click += btnCadContas_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(48, 109);
+            button1.Name = "button1";
+            button1.Size = new Size(85, 52);
+            button1.TabIndex = 8;
+            button1.Text = "Formas Recebimento";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(btnCadContas);
             Controls.Add(btnValorVenda);
             Controls.Add(btnLancEstoque);
@@ -111,5 +123,6 @@
         private Button btnLancEstoque;
         private Button btnValorVenda;
         private Button btnCadContas;
+        private Button button1;
     }
 }

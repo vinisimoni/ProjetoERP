@@ -1,13 +1,4 @@
 ﻿using ProjetoCadastro;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ProjetoERP.Telas
 {
@@ -45,6 +36,12 @@ namespace ProjetoERP.Telas
         private void btnCadContas_Click(object sender, EventArgs e)
         {
             frmCadastroConta tela = new frmCadastroConta();
+            tela.ShowDialog(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmCadastroFormaPagamento tela = new frmCadastroFormaPagamento();
             tela.ShowDialog(this);
         }
     }
