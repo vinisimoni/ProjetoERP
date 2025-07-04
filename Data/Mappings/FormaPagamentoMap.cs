@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using ProjetoERP.Domain;
+using System.Reflection.Emit;
 
 namespace ProjetoERP.Data.Mappings
 {
@@ -55,6 +56,11 @@ namespace ProjetoERP.Data.Mappings
                    .WithMany() // ou .WithMany(c => c.FormasPagamento) se for bidirecional
                    .HasForeignKey(x => x.IdConta)
                    .OnDelete(DeleteBehavior.Restrict); // ou .Cascade, conforme a regra de negócio
+
+            builder.HasMany(fp => fp.Parcelas)
+                .WithOne(fpp => fpp.FormaPagamento)
+                .HasForeignKey(fpp => fpp.IdFormaPagamento)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoCadastro.Data;
 
@@ -11,9 +12,11 @@ using ProjetoCadastro.Data;
 namespace ProjetoERP.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250609200728_CriarFormasPagamentoParcelas")]
+    partial class CriarFormasPagamentoParcelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,17 +33,35 @@ namespace ProjetoERP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Bairro");
+
                     b.Property<string>("BairroEntrega")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("BairroEntrega");
 
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Cep");
+
                     b.Property<string>("CepEntrega")
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("CepEntrega");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Cidade");
 
                     b.Property<string>("CidadeEntrega")
                         .IsRequired()
@@ -54,11 +75,23 @@ namespace ProjetoERP.Migrations
                         .HasColumnType("VARCHAR")
                         .HasColumnName("CpfCnpj");
 
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Endereco");
+
                     b.Property<string>("EnderecoEntrega")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("EnderecoEntrega");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Estado");
 
                     b.Property<string>("EstadoEntrega")
                         .IsRequired()
@@ -325,55 +358,6 @@ namespace ProjetoERP.Migrations
                     b.HasIndex("IdMaterial");
 
                     b.ToTable("MovimentacaoEstoque", (string)null);
-                });
-
-            modelBuilder.Entity("ProjetoCadastro.Domain.Cliente", b =>
-                {
-                    b.OwnsOne("ProjetoERP.Domain.ValueObject.Endereco", "Endereco", b1 =>
-                        {
-                            b1.Property<int>("ClienteId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Bairro")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Bairro");
-
-                            b1.Property<string>("Cep")
-                                .IsRequired()
-                                .HasMaxLength(8)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Cep");
-
-                            b1.Property<string>("Cidade")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Cidade");
-
-                            b1.Property<string>("Estado")
-                                .IsRequired()
-                                .HasMaxLength(2)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Estado");
-
-                            b1.Property<string>("Rua")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("VARCHAR")
-                                .HasColumnName("Endereco");
-
-                            b1.HasKey("ClienteId");
-
-                            b1.ToTable("Clientes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ClienteId");
-                        });
-
-                    b.Navigation("Endereco")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjetoERP.Domain.FormaPagamento", b =>

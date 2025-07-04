@@ -54,7 +54,7 @@ namespace ProjetoCadastro
                 _cliente.CpfCnpj = txtCpfCnpj.Text;
 
                 txtCEP.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                _cliente.Cep = txtCEP.Text;
+                _cliente.Endereco.Cep = txtCEP.Text;
 
                 txtCEPEntrega.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
                 _cliente.CepEntrega = txtCEPEntrega.Text;
@@ -254,11 +254,17 @@ namespace ProjetoCadastro
             {
                 grpEnderecoEntrega.Enabled = false;
 
-                _cliente.EnderecoEntrega = _cliente.Endereco;
-                _cliente.BairroEntrega = _cliente.Bairro;
-                _cliente.CidadeEntrega = _cliente.Cidade;
-                _cliente.EstadoEntrega = _cliente.Estado;
-                _cliente.CepEntrega = _cliente.Cep;
+                //_cliente.EnderecoEntrega = _cliente.Endereco;
+                //_cliente.BairroEntrega = _cliente.Bairro;
+                //_cliente.CidadeEntrega = _cliente.Cidade;
+                //_cliente.EstadoEntrega = _cliente.Estado;
+                //_cliente.CepEntrega = _cliente.Cep;
+
+                _cliente.EnderecoEntrega = _cliente.Endereco.Rua;
+                _cliente.BairroEntrega = _cliente.Endereco.Bairro;
+                _cliente.CidadeEntrega = _cliente.Endereco.Cidade;
+                _cliente.EstadoEntrega = _cliente.Endereco.Estado;
+                _cliente.CepEntrega = _cliente.Endereco.Cep;
             }
             else
             {
@@ -297,11 +303,16 @@ namespace ProjetoCadastro
             txtCpfCnpj.DataBindings.Add("Text", _cliente, "CpfCnpj", false, DataSourceUpdateMode.OnPropertyChanged);
             txtRazaoSocial.DataBindings.Add("Text", _cliente, "RazaoSocial", false, DataSourceUpdateMode.OnPropertyChanged);
             txtNomeFantasia.DataBindings.Add("Text", _cliente, "NomeFantasia", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtEndereco.DataBindings.Add("Text", _cliente, "Endereco", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtBairro.DataBindings.Add("Text", _cliente, "Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCidade.DataBindings.Add("Text", _cliente, "Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtUF.DataBindings.Add("Text", _cliente, "Estado", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCEP.DataBindings.Add("Text", _cliente, "Cep", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtEndereco.DataBindings.Add("Text", _cliente.Endereco, "Endereco", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtBairro.DataBindings.Add("Text", _cliente.Endereco, "Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtCidade.DataBindings.Add("Text", _cliente.Endereco, "Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtUF.DataBindings.Add("Text", _cliente.Endereco, "Estado", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtCEP.DataBindings.Add("Text", _cliente.Endereco, "Cep", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtEndereco.DataBindings.Add("Text", _cliente, "Endereco.Rua", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtBairro.DataBindings.Add("Text", _cliente, "Endereco.Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCidade.DataBindings.Add("Text", _cliente, "Endereco.Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtUF.DataBindings.Add("Text", _cliente, "Endereco.Estado", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCEP.DataBindings.Add("Text", _cliente, "Endereco.Cep", false, DataSourceUpdateMode.OnPropertyChanged);
             chkUtilizarOMesmo.DataBindings.Add("Checked", _cliente, "UtilizarMesmoEnderecoParaEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
             txtEnderecoEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
             txtBairroEntrega.DataBindings.Add("Text", _cliente, "BairroEntrega", false, DataSourceUpdateMode.OnPropertyChanged);

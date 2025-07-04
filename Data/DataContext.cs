@@ -22,5 +22,6 @@ namespace ProjetoCadastro.Data
         public DbSet<HistoricoValorVenda> HistoricoValorVenda { get; set; }
         public DbSet<Conta> Contas { get; set; }
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
+        public DbSet<FormaPagamentoParcela> FormasPagamentoParcelas { get; set; }
     }
 }

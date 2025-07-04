@@ -56,9 +56,21 @@
             label1 = new Label();
             txtDescricao = new TextBox();
             txtCodigo = new TextBox();
+            tbParcelas = new TabPage();
+            label9 = new Label();
+            txtNrParcela = new TextBox();
+            btnIncluirParcela = new Button();
+            label8 = new Label();
+            txtDiasParcela = new TextBox();
+            label7 = new Label();
+            txtCodParcela = new TextBox();
+            btnExcluirParcela = new Button();
+            grdParcelas = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)grdFormasPgto).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tbParcelas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)grdParcelas).BeginInit();
             SuspendLayout();
             // 
             // grdFormasPgto
@@ -73,7 +85,7 @@
             grdFormasPgto.Name = "grdFormasPgto";
             grdFormasPgto.ReadOnly = true;
             grdFormasPgto.RowHeadersVisible = false;
-            grdFormasPgto.ScrollBars = ScrollBars.Vertical;
+            grdFormasPgto.ScrollBars = ScrollBars.None;
             grdFormasPgto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grdFormasPgto.Size = new Size(562, 180);
             grdFormasPgto.TabIndex = 4;
@@ -103,12 +115,14 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tbParcelas);
             tabControl1.Enabled = false;
             tabControl1.Location = new Point(12, 198);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(566, 211);
             tabControl1.TabIndex = 9;
+            tabControl1.Selecting += tabControl1_Selecting;
             // 
             // tabPage1
             // 
@@ -358,6 +372,116 @@
             txtCodigo.TabIndex = 4;
             txtCodigo.TextAlign = HorizontalAlignment.Center;
             // 
+            // tbParcelas
+            // 
+            tbParcelas.Controls.Add(label9);
+            tbParcelas.Controls.Add(txtNrParcela);
+            tbParcelas.Controls.Add(btnIncluirParcela);
+            tbParcelas.Controls.Add(label8);
+            tbParcelas.Controls.Add(txtDiasParcela);
+            tbParcelas.Controls.Add(label7);
+            tbParcelas.Controls.Add(txtCodParcela);
+            tbParcelas.Controls.Add(btnExcluirParcela);
+            tbParcelas.Controls.Add(grdParcelas);
+            tbParcelas.Location = new Point(4, 24);
+            tbParcelas.Name = "tbParcelas";
+            tbParcelas.Padding = new Padding(3);
+            tbParcelas.Size = new Size(558, 183);
+            tbParcelas.TabIndex = 1;
+            tbParcelas.Text = "Parcelas";
+            tbParcelas.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(13, 47);
+            label9.Name = "label9";
+            label9.Size = new Size(67, 15);
+            label9.TabIndex = 19;
+            label9.Text = "Nr. Parcela:";
+            // 
+            // txtNrParcela
+            // 
+            txtNrParcela.Enabled = false;
+            txtNrParcela.Location = new Point(94, 44);
+            txtNrParcela.Name = "txtNrParcela";
+            txtNrParcela.Size = new Size(58, 23);
+            txtNrParcela.TabIndex = 18;
+            txtNrParcela.TextAlign = HorizontalAlignment.Center;
+            // 
+            // btnIncluirParcela
+            // 
+            btnIncluirParcela.Location = new Point(77, 102);
+            btnIncluirParcela.Name = "btnIncluirParcela";
+            btnIncluirParcela.Size = new Size(75, 23);
+            btnIncluirParcela.TabIndex = 17;
+            btnIncluirParcela.Text = "Incluir";
+            btnIncluirParcela.UseVisualStyleBackColor = true;
+            btnIncluirParcela.Click += btnIncluirParcela_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(13, 76);
+            label8.Name = "label8";
+            label8.Size = new Size(32, 15);
+            label8.TabIndex = 16;
+            label8.Text = "Dias:";
+            // 
+            // txtDiasParcela
+            // 
+            txtDiasParcela.Location = new Point(94, 73);
+            txtDiasParcela.Name = "txtDiasParcela";
+            txtDiasParcela.Size = new Size(58, 23);
+            txtDiasParcela.TabIndex = 15;
+            txtDiasParcela.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(13, 18);
+            label7.Name = "label7";
+            label7.Size = new Size(76, 15);
+            label7.TabIndex = 14;
+            label7.Text = "Cód. Parcela:";
+            // 
+            // txtCodParcela
+            // 
+            txtCodParcela.Enabled = false;
+            txtCodParcela.Location = new Point(94, 15);
+            txtCodParcela.Name = "txtCodParcela";
+            txtCodParcela.Size = new Size(58, 23);
+            txtCodParcela.TabIndex = 13;
+            txtCodParcela.TextAlign = HorizontalAlignment.Center;
+            // 
+            // btnExcluirParcela
+            // 
+            btnExcluirParcela.Location = new Point(296, 157);
+            btnExcluirParcela.Name = "btnExcluirParcela";
+            btnExcluirParcela.Size = new Size(75, 23);
+            btnExcluirParcela.TabIndex = 12;
+            btnExcluirParcela.Text = "Excluir";
+            btnExcluirParcela.UseVisualStyleBackColor = true;
+            btnExcluirParcela.Click += btnExcluirParcela_Click;
+            // 
+            // grdParcelas
+            // 
+            grdParcelas.AllowUserToAddRows = false;
+            grdParcelas.AllowUserToDeleteRows = false;
+            grdParcelas.AllowUserToResizeColumns = false;
+            grdParcelas.AllowUserToResizeRows = false;
+            grdParcelas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grdParcelas.Location = new Point(158, 18);
+            grdParcelas.MultiSelect = false;
+            grdParcelas.Name = "grdParcelas";
+            grdParcelas.ReadOnly = true;
+            grdParcelas.RowHeadersVisible = false;
+            grdParcelas.ScrollBars = ScrollBars.None;
+            grdParcelas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdParcelas.Size = new Size(213, 133);
+            grdParcelas.TabIndex = 5;
+            grdParcelas.CellDoubleClick += grdParcelas_CellDoubleClick;
+            // 
             // frmCadastroFormaPagamento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -380,6 +504,9 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            tbParcelas.ResumeLayout(false);
+            tbParcelas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)grdParcelas).EndInit();
             ResumeLayout(false);
         }
 
@@ -413,5 +540,15 @@
         private TextBox txtDescricaoConta;
         private TextBox txtCodigoConta;
         private Button btnSelecionaMaterial;
+        private TabPage tbParcelas;
+        private DataGridView grdParcelas;
+        private Button btnExcluirParcela;
+        private Button btnIncluirParcela;
+        private Label label8;
+        private TextBox txtDiasParcela;
+        private Label label7;
+        private TextBox txtCodParcela;
+        private Label label9;
+        private TextBox txtNrParcela;
     }
 }

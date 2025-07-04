@@ -16,7 +16,7 @@
         public bool PermitePagamento { get; set; }
         public string Situacao { get; set; }
 
-
         public Conta Conta { get; set; }
+        public virtual ICollection<FormaPagamentoParcela> Parcelas { get; set; }
     }
 }
