@@ -51,7 +51,7 @@ namespace ProjetoCadastro
                     return;
 
                 txtCpfCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                _cliente.CpfCnpj = txtCpfCnpj.Text;
+                _cliente.Dados.CpfCnpj = txtCpfCnpj.Text;
 
                 txtCEP.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
                 _cliente.Endereco.Cep = txtCEP.Text;
@@ -236,13 +236,13 @@ namespace ProjetoCadastro
             {
                 txtCpfCnpj.Mask = "000.000.000-00";
                 txtCpfCnpj.Clear();
-                _cliente.TipoPessoa = ETipoPessoa.Física;
+                _cliente.Dados.TipoPessoa = ETipoPessoa.Física;
             }
             else if (rbJuridica.Checked)
             {
                 txtCpfCnpj.Mask = "00.000.000/0000-00";
                 txtCpfCnpj.Clear();
-                _cliente.TipoPessoa = ETipoPessoa.Jurídica;
+                _cliente.Dados.TipoPessoa = ETipoPessoa.Jurídica;
             }
         }
 
@@ -300,9 +300,9 @@ namespace ProjetoCadastro
 
             // Cria novos bindings
             txtCodigo.DataBindings.Add("Text", _cliente, "Id", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCpfCnpj.DataBindings.Add("Text", _cliente, "CpfCnpj", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtRazaoSocial.DataBindings.Add("Text", _cliente, "RazaoSocial", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtNomeFantasia.DataBindings.Add("Text", _cliente, "NomeFantasia", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCpfCnpj.DataBindings.Add("Text", _cliente, "Dados.CpfCnpj", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtRazaoSocial.DataBindings.Add("Text", _cliente, "Dados.RazaoSocial", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtNomeFantasia.DataBindings.Add("Text", _cliente, "Dados.NomeFantasia", false, DataSourceUpdateMode.OnPropertyChanged);
             //txtEndereco.DataBindings.Add("Text", _cliente.Endereco, "Endereco", false, DataSourceUpdateMode.OnPropertyChanged);
             //txtBairro.DataBindings.Add("Text", _cliente.Endereco, "Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
             //txtCidade.DataBindings.Add("Text", _cliente.Endereco, "Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -384,7 +384,7 @@ namespace ProjetoCadastro
             rbFisica.CheckedChanged -= RadioButton_CheckedChanged;
             rbJuridica.CheckedChanged -= RadioButton_CheckedChanged;
 
-            if (_cliente.TipoPessoa == ETipoPessoa.Física)
+            if (_cliente.Dados.TipoPessoa == ETipoPessoa.Física)
             {
                 rbFisica.Checked = true;
                 txtCpfCnpj.Mask = "000.000.000-00";

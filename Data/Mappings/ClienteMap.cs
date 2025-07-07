@@ -15,28 +15,54 @@ namespace ProjetoCadastro.Data.Mappings
                     .ValueGeneratedOnAdd()
                     .UseIdentityColumn();
 
-            builder.Property(d => d.RazaoSocial)
+            //builder.Property(d => d.RazaoSocial)
+            //        .IsRequired()
+            //        .HasColumnName("RazaoSocial")
+            //        .HasColumnType("VARCHAR")
+            //        .HasMaxLength(100);
+
+            //builder.Property(d => d.NomeFantasia)
+            //        .IsRequired(false)
+            //        .HasColumnName("NomeFantasia")
+            //        .HasColumnType("VARCHAR")
+            //        .HasMaxLength(100);
+
+            //builder.Property(x => x.TipoPessoa)
+            //        .IsRequired()
+            //        .HasColumnName("TipoPessoa")
+            //        .HasColumnType("INT");
+
+            //builder.Property(x => x.CpfCnpj)
+            //        .IsRequired()
+            //        .HasColumnName("CpfCnpj")
+            //        .HasColumnType("VARCHAR")
+            //        .HasMaxLength(14);
+
+            builder.OwnsOne(c => c.Dados, dados =>
+            {
+                dados.Property(d => d.RazaoSocial)
                     .IsRequired()
                     .HasColumnName("RazaoSocial")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-            builder.Property(d => d.NomeFantasia)
+                dados.Property(d => d.NomeFantasia)
                     .IsRequired(false)
                     .HasColumnName("NomeFantasia")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(100);
 
-            builder.Property(x => x.TipoPessoa)
+                dados.Property(x => x.TipoPessoa)
                     .IsRequired()
                     .HasColumnName("TipoPessoa")
                     .HasColumnType("INT");
 
-            builder.Property(x => x.CpfCnpj)
+                dados.Property(x => x.CpfCnpj)
                     .IsRequired()
                     .HasColumnName("CpfCnpj")
                     .HasColumnType("VARCHAR")
                     .HasMaxLength(14);
+            });
 
             //builder.Property(x => x.Endereco)
             //        .IsRequired()

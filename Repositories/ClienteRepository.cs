@@ -33,9 +33,9 @@ namespace ProjetoCadastro.Repositories
                 .Select(c => new
                 {
                     c.Id,
-                    c.CpfCnpj,
-                    c.RazaoSocial,
-                    c.NomeFantasia,
+                    c.Dados.CpfCnpj,
+                    c.Dados.RazaoSocial,
+                    c.Dados.NomeFantasia,
                     c.Situacao
                 })
                 .ToList<object>();
@@ -50,7 +50,7 @@ namespace ProjetoCadastro.Repositories
 
             var query = _context.Clientes.AsNoTracking()
                 .Where(c => (situacao == "Ambos" || c.Situacao == situacao) &&
-                            (tipoPessoaEnum == null || c.TipoPessoa == tipoPessoaEnum));
+                            (tipoPessoaEnum == null || c.Dados.TipoPessoa == tipoPessoaEnum));
 
             // Aplica filtro por texto se houver
             query = AplicarFiltroPorCampo(query, filtroSelecionado, filtro);
@@ -66,9 +66,9 @@ namespace ProjetoCadastro.Repositories
 
             return campo switch
             {
-                "Razão Social" => query.Where(c => c.RazaoSocial.Contains(filtro)),
-                "CPF/CNPJ" => query.Where(c => c.CpfCnpj.Contains(filtro)),
-                "Nome Fantasia" => query.Where(c => c.NomeFantasia.Contains(filtro)),
+                "Razão Social" => query.Where(c => c.Dados.RazaoSocial.Contains(filtro)),
+                "CPF/CNPJ" => query.Where(c => c.Dados.CpfCnpj.Contains(filtro)),
+                "Nome Fantasia" => query.Where(c => c.Dados.NomeFantasia.Contains(filtro)),
                 "Endereço" => query.Where(c => c.Endereco.Rua.Contains(filtro)),
                 "Cidade" => query.Where(c => c.Endereco.Cidade.Contains(filtro)),
                 "Endereço Entrega" => query.Where(c => c.EnderecoEntrega.Rua.Contains(filtro)),
@@ -81,11 +81,11 @@ namespace ProjetoCadastro.Repositories
         {
             return campo switch
             {
-                "Endereço" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.Endereco.Rua, c.Situacao, c.TipoPessoa }),
-                "Cidade" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.Endereco.Cidade, c.Situacao, c.TipoPessoa }),
-                "Endereço Entrega" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.EnderecoEntrega.Rua, c.Situacao, c.TipoPessoa }),
-                "Cidade Entrega" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.EnderecoEntrega.Cidade, c.Situacao, c.TipoPessoa }),
-                _ => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.NomeFantasia, c.Situacao, c.TipoPessoa })
+                "Endereço" => query.Select(c => new { c.Id, c.Dados.CpfCnpj, c.Dados.RazaoSocial, c.Endereco.Rua, c.Situacao, c.Dados.TipoPessoa }),
+                "Cidade" => query.Select(c => new { c.Id, c.Dados.CpfCnpj, c.Dados.RazaoSocial, c.Endereco.Cidade, c.Situacao, c.Dados.TipoPessoa }),
+                "Endereço Entrega" => query.Select(c => new { c.Id, c.Dados.CpfCnpj, c.Dados.RazaoSocial, c.EnderecoEntrega.Rua, c.Situacao, c.Dados.TipoPessoa }),
+                "Cidade Entrega" => query.Select(c => new { c.Id, c.Dados.CpfCnpj, c.Dados.RazaoSocial, c.EnderecoEntrega.Cidade, c.Situacao, c.Dados.TipoPessoa }),
+                _ => query.Select(c => new { c.Id, c.Dados.CpfCnpj, c.Dados.RazaoSocial, c.Dados.NomeFantasia, c.Situacao, c.Dados.TipoPessoa })
             };
         }
 

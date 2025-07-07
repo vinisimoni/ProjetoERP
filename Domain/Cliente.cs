@@ -9,13 +9,15 @@ namespace ProjetoCadastro.Domain
         {
             Endereco = new Endereco();
             EnderecoEntrega = new Endereco();
+            Dados = new DadosCadastrais();
         }
 
         public int Id { get; set; }
-        public string RazaoSocial { get; set; }
-        public string NomeFantasia { get; set; }
-        public ETipoPessoa TipoPessoa { get; set; }
-        public string CpfCnpj { get; set; }
+        //public string RazaoSocial { get; set; }
+        //public string NomeFantasia { get; set; }
+        //public ETipoPessoa TipoPessoa { get; set; }
+        //public string CpfCnpj { get; set; }
+        public DadosCadastrais Dados { get; set; }
         //public string Endereco { get; set; }
         //public string Bairro { get; set; }
         //public string Cidade { get; set; }
