@@ -71,8 +71,8 @@ namespace ProjetoCadastro.Repositories
                 "Nome Fantasia" => query.Where(c => c.NomeFantasia.Contains(filtro)),
                 "Endereço" => query.Where(c => c.Endereco.Rua.Contains(filtro)),
                 "Cidade" => query.Where(c => c.Endereco.Cidade.Contains(filtro)),
-                "Endereço Entrega" => query.Where(c => c.EnderecoEntrega.Contains(filtro)),
-                "Cidade Entrega" => query.Where(c => c.CidadeEntrega.Contains(filtro)),
+                "Endereço Entrega" => query.Where(c => c.EnderecoEntrega.Rua.Contains(filtro)),
+                "Cidade Entrega" => query.Where(c => c.EnderecoEntrega.Cidade.Contains(filtro)),
                 _ => query
             };
         }
@@ -83,8 +83,8 @@ namespace ProjetoCadastro.Repositories
             {
                 "Endereço" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.Endereco.Rua, c.Situacao, c.TipoPessoa }),
                 "Cidade" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.Endereco.Cidade, c.Situacao, c.TipoPessoa }),
-                "Endereço Entrega" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.EnderecoEntrega, c.Situacao, c.TipoPessoa }),
-                "Cidade Entrega" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.CidadeEntrega, c.Situacao, c.TipoPessoa }),
+                "Endereço Entrega" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.EnderecoEntrega.Rua, c.Situacao, c.TipoPessoa }),
+                "Cidade Entrega" => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.EnderecoEntrega.Cidade, c.Situacao, c.TipoPessoa }),
                 _ => query.Select(c => new { c.Id, c.CpfCnpj, c.RazaoSocial, c.NomeFantasia, c.Situacao, c.TipoPessoa })
             };
         }

@@ -57,7 +57,7 @@ namespace ProjetoCadastro
                 _cliente.Endereco.Cep = txtCEP.Text;
 
                 txtCEPEntrega.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                _cliente.CepEntrega = txtCEPEntrega.Text;
+                _cliente.EnderecoEntrega.Cep = txtCEPEntrega.Text;
 
                 if (_cliente.Id == 0)
                 {
@@ -260,21 +260,21 @@ namespace ProjetoCadastro
                 //_cliente.EstadoEntrega = _cliente.Estado;
                 //_cliente.CepEntrega = _cliente.Cep;
 
-                _cliente.EnderecoEntrega = _cliente.Endereco.Rua;
-                _cliente.BairroEntrega = _cliente.Endereco.Bairro;
-                _cliente.CidadeEntrega = _cliente.Endereco.Cidade;
-                _cliente.EstadoEntrega = _cliente.Endereco.Estado;
-                _cliente.CepEntrega = _cliente.Endereco.Cep;
+                _cliente.EnderecoEntrega.Rua = _cliente.Endereco.Rua;
+                _cliente.EnderecoEntrega.Bairro = _cliente.Endereco.Bairro;
+                _cliente.EnderecoEntrega.Cidade = _cliente.Endereco.Cidade;
+                _cliente.EnderecoEntrega.Estado = _cliente.Endereco.Estado;
+                _cliente.EnderecoEntrega.Cep = _cliente.Endereco.Cep;
             }
             else
             {
                 grpEnderecoEntrega.Enabled = true;
 
-                _cliente.EnderecoEntrega = string.Empty;
-                _cliente.BairroEntrega = string.Empty;
-                _cliente.CidadeEntrega = string.Empty;
-                _cliente.EstadoEntrega = string.Empty;
-                _cliente.CepEntrega = string.Empty;
+                _cliente.EnderecoEntrega.Rua = string.Empty;
+                _cliente.EnderecoEntrega.Bairro = string.Empty;
+                _cliente.EnderecoEntrega.Cidade = string.Empty;
+                _cliente.EnderecoEntrega.Estado = string.Empty;
+                _cliente.EnderecoEntrega.Cep = string.Empty;
             }
         }
 
@@ -314,11 +314,16 @@ namespace ProjetoCadastro
             txtUF.DataBindings.Add("Text", _cliente, "Endereco.Estado", false, DataSourceUpdateMode.OnPropertyChanged);
             txtCEP.DataBindings.Add("Text", _cliente, "Endereco.Cep", false, DataSourceUpdateMode.OnPropertyChanged);
             chkUtilizarOMesmo.DataBindings.Add("Checked", _cliente, "UtilizarMesmoEnderecoParaEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtEnderecoEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtBairroEntrega.DataBindings.Add("Text", _cliente, "BairroEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCidadeEntrega.DataBindings.Add("Text", _cliente, "CidadeEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtUFEntrega.DataBindings.Add("Text", _cliente, "EstadoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtCEPEntrega.DataBindings.Add("Text", _cliente, "CepEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtEnderecoEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtBairroEntrega.DataBindings.Add("Text", _cliente, "BairroEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtCidadeEntrega.DataBindings.Add("Text", _cliente, "CidadeEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtUFEntrega.DataBindings.Add("Text", _cliente, "EstadoEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            //txtCEPEntrega.DataBindings.Add("Text", _cliente, "CepEntrega", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtEnderecoEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega.Rua", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtBairroEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega.Bairro", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCidadeEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega.Cidade", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtUFEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega.Estado", false, DataSourceUpdateMode.OnPropertyChanged);
+            txtCEPEntrega.DataBindings.Add("Text", _cliente, "EnderecoEntrega.Cep", false, DataSourceUpdateMode.OnPropertyChanged);
             cboSitucao.DataBindings.Add("Text", _cliente, "Situacao", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -345,7 +350,7 @@ namespace ProjetoCadastro
                     break;
 
                 case "Endereço":
-                    DataGridViewHelper.ConfigurarColuna(grdClientes, "Endereco", "Endereço", 210);
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "Rua", "Endereço", 210);
                     break;
 
                 case "Cidade":
@@ -353,7 +358,7 @@ namespace ProjetoCadastro
                     break;
 
                 case "Endereço Entrega":
-                    DataGridViewHelper.ConfigurarColuna(grdClientes, "EnderecoEntrega", "Endereço Entrega", 210);
+                    DataGridViewHelper.ConfigurarColuna(grdClientes, "Rua", "Endereço Entrega", 210);
                     break;
 
                 case "Cidade Entrega":

@@ -8,6 +8,7 @@ namespace ProjetoCadastro.Domain
         public Cliente()
         {
             Endereco = new Endereco();
+            EnderecoEntrega = new Endereco();
         }
 
         public int Id { get; set; }
@@ -22,11 +23,12 @@ namespace ProjetoCadastro.Domain
         //public string Cep { get; set; }
         public Endereco Endereco { get; set; }
         public bool UtilizarMesmoEnderecoParaEntrega { get; set; }
-        public string EnderecoEntrega { get; set; }
-        public string BairroEntrega { get; set; }
-        public string CidadeEntrega { get; set; }
-        public string EstadoEntrega { get; set; }
-        public string CepEntrega { get; set; }
+        //public string EnderecoEntrega { get; set; }
+        //public string BairroEntrega { get; set; }
+        //public string CidadeEntrega { get; set; }
+        //public string EstadoEntrega { get; set; }
+        //public string CepEntrega { get; set; }
+        public Endereco EnderecoEntrega { get; set; }
         public string Situacao { get; set; }
     }
 }
