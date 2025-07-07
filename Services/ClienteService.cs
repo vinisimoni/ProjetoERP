@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProjetoCadastro.Data;
-using ProjetoCadastro.Domain;
+﻿using ProjetoCadastro.Domain;
 using ProjetoCadastro.Repositories;
 
 namespace ProjetoERP.Services

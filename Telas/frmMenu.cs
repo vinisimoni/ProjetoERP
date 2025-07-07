@@ -44,5 +44,11 @@ namespace ProjetoERP.Telas
             frmCadastroFormaPagamento tela = new frmCadastroFormaPagamento();
             tela.ShowDialog(this);
         }
+
+        private void btnCadFornecedor_Click(object sender, EventArgs e)
+        {
+            frmCadastroFornecedor tela = new frmCadastroFornecedor();
+            tela.ShowDialog(this);
+        }
     }
 }

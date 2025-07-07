@@ -34,6 +34,7 @@
             btnValorVenda = new Button();
             btnCadContas = new Button();
             button1 = new Button();
+            btnCadFornecedor = new Button();
             SuspendLayout();
             // 
             // btnCadClientes
@@ -96,11 +97,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // btnCadFornecedor
+            // 
+            btnCadFornecedor.Location = new Point(48, 167);
+            btnCadFornecedor.Name = "btnCadFornecedor";
+            btnCadFornecedor.Size = new Size(100, 23);
+            btnCadFornecedor.TabIndex = 10;
+            btnCadFornecedor.Text = "Fornecedores";
+            btnCadFornecedor.UseVisualStyleBackColor = true;
+            btnCadFornecedor.Click += btnCadFornecedor_Click;
+            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnCadFornecedor);
             Controls.Add(button1);
             Controls.Add(btnCadContas);
             Controls.Add(btnValorVenda);
@@ -124,5 +136,6 @@
         private Button btnValorVenda;
         private Button btnCadContas;
         private Button button1;
+        private Button btnCadFornecedor;
     }
 }

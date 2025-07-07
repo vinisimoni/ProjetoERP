@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoCadastro.Data;
 
@@ -11,9 +12,11 @@ using ProjetoCadastro.Data;
 namespace ProjetoERP.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250707134751_Fornecedores")]
+    partial class Fornecedores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -491,26 +494,31 @@ namespace ProjetoERP.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<string>("Bairro")
+                                .IsRequired()
                                 .HasMaxLength(100)
                                 .HasColumnType("VARCHAR")
                                 .HasColumnName("Bairro");
 
                             b1.Property<string>("Cep")
+                                .IsRequired()
                                 .HasMaxLength(8)
                                 .HasColumnType("VARCHAR")
                                 .HasColumnName("Cep");
 
                             b1.Property<string>("Cidade")
+                                .IsRequired()
                                 .HasMaxLength(100)
                                 .HasColumnType("VARCHAR")
                                 .HasColumnName("Cidade");
 
                             b1.Property<string>("Estado")
+                                .IsRequired()
                                 .HasMaxLength(2)
                                 .HasColumnType("VARCHAR")
                                 .HasColumnName("Estado");
 
                             b1.Property<string>("Rua")
+                                .IsRequired()
                                 .HasMaxLength(100)
                                 .HasColumnType("VARCHAR")
                                 .HasColumnName("Endereco");

@@ -23,5 +23,6 @@ namespace ProjetoCadastro.Data
         public DbSet<Conta> Contas { get; set; }
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
         public DbSet<FormaPagamentoParcela> FormasPagamentoParcelas { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
     }
 }
